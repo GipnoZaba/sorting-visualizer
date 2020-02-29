@@ -13,17 +13,27 @@ export default class VisualizerStore implements IStore {
   }
 
   originalArray: ISortable[] | null = null;
-  currentAlgorithm: ISortingAlgortihm = new BubbleSort([
-    new SortableNumber(9),
-    new SortableNumber(5),
-    new SortableNumber(6),
-    new SortableNumber(3),
-    new SortableNumber(7),
-    new SortableNumber(2)
-  ]);
+  bubbleAlgorithm: ISortingAlgortihm = new BubbleSort(
+    this.generateSortableNumbers(10, 200, 100)
+  );
 
-  @action step = () => {
-    this.currentAlgorithm.step();
-    console.log(this.currentAlgorithm.array);
+  @action startAlgorithm = (algorithm: ISortingAlgortihm) => {
+    setInterval(() => algorithm.step(), 10);
   };
+
+  @action generateSortableNumbers(
+    from: number,
+    to: number,
+    count: number
+  ): ISortable[] {
+    let array: ISortable[] = [];
+
+    for (let i = 0; i < count; i++) {
+      array.push(
+        new SortableNumber(Math.round(Math.random() * (to - from) + from))
+      );
+    }
+
+    return array;
+  }
 }

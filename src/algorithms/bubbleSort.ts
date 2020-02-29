@@ -36,7 +36,7 @@ class BubbleSort implements ISortingAlgortihm {
     this.algorithmIterator = algorithmStep(array);
   }
 
-  step() {
+  @action step() {
     const nextStep = this.algorithmIterator.next();
     if (!nextStep.done) {
       this.array = nextStep.value.array;
