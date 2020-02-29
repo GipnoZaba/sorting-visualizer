@@ -2,6 +2,7 @@ export interface ISortable {
   index: number;
   isGreaterThan(other: ISortable): boolean;
   getValue(): number;
+  toString(): string;
 }
 
 export class SortableNumber implements ISortable {
@@ -19,5 +20,9 @@ export class SortableNumber implements ISortable {
 
   getValue() {
     return this.value;
+  }
+
+  toString() {
+    return this.value.toString();
   }
 }

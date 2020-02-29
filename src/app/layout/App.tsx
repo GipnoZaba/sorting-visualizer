@@ -1,14 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import SortingVisualizator from "../../features/SortingVisualizator";
+import { observer } from "mobx-react-lite";
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <SortingVisualizator />
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <SortingVisualizator />
+    </div>
+  );
+};
 
-export default App;
+export default observer(App);
