@@ -7,22 +7,25 @@
     row-gap: 50px;
     justify-content: center;
 }
-.visualisations-element {
+.visualisation-card {
+    height: 250px;
     border-radius: 2px;
     box-shadow: 6px 6px 6px rgba(0,0,0,0.3);
     border: 4px dashed #8d8d8d;
     transition: transform .2s;
+    display: grid;
+    grid-template-rows: 20% 60% 20%;
 }
 
-.visualisations-element:hover {
+.visualisation-card:hover {
     box-shadow: 8px 8px 8px rgba(0,0,0,0.4);
     transform: scale(1.05);
     cursor: pointer;
   }
 
 .array-container {
-    height: 200px;
-    padding: 3px;
+    height: 100%;
+    padding: 0 20px 0 20px;
     background: #e3e3e3;
     display: grid;
     grid-template-columns: repeat(100, 1fr); 

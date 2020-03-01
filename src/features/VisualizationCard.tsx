@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import { ISortable } from "../app/models/sortable";
 import { ISortingAlgortihm } from "../algorithms/sortingAlgorithm";
 import { RootStoreContext } from "../app/stores/rootStore";
 
@@ -13,16 +12,17 @@ const VisualizationCard: React.FC<{ algorithm: ISortingAlgortihm }> = ({
 
   return (
     <div
-      className="visualisations-element"
+      className="visualisation-card"
       onClick={() => startAlgorithm(algorithm)}
     >
+      <div style={{ textAlign: "center" }}>Roflan</div>
       <div className="array-container">
         {algorithm.array.map(element => {
           return (
             <div
               className="array-element"
               key={element.index}
-              style={{ height: `${element.getValue()}px` }}
+              style={{ height: `${element.getValue()}%` }}
             ></div>
           );
         })}

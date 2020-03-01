@@ -1,7 +1,7 @@
 import { RootStore } from "./rootStore";
 import { IStore } from "./store";
 import { ISortable, SortableNumber } from "../models/sortable";
-import { observable, action } from "mobx";
+import { action } from "mobx";
 import { ISortingAlgortihm } from "../../algorithms/sortingAlgorithm";
 import BubbleSort from "../../algorithms/bubbleSort";
 
@@ -14,7 +14,7 @@ export default class VisualizerStore implements IStore {
 
   originalArray: ISortable[] | null = null;
   bubbleAlgorithm: ISortingAlgortihm = new BubbleSort(
-    this.generateSortableNumbers(10, 200, 100)
+    this.generateSortableNumbers(10, 100, 100)
   );
 
   @action startAlgorithm = (algorithm: ISortingAlgortihm) => {

@@ -7,7 +7,7 @@ const ArrayColorElement: React.FC<{ element: ISortable }> = ({ element }) => {
     <div
       className="vizualizer-element"
       style={{ backgroundColor: element.getColor() }}
-    >.</div>
+    ></div>
   );
 };
 
