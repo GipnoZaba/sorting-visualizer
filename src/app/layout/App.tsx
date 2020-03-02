@@ -1,11 +1,11 @@
 import React from "react";
-import SortingVisualizator from "../../features/SortingVisualizator";
+import VisualizersCarousel from "../../features/VisualizersCarousel";
 import { observer } from "mobx-react-lite";
 
 const App = () => {
   return (
     <div>
-      <SortingVisualizator />
+      <VisualizersCarousel />
     </div>
   );
 };

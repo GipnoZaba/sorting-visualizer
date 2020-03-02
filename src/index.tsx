@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './app/styling/styles.css';
-import './app/styling/visualizer.css';
+import './app/styling/styles.scss';
+import './app/styling/visualizer.scss';
 import App from './app/layout/App';
 import * as serviceWorker from './serviceWorker';
 

@@ -14,7 +14,7 @@ export default class VisualizerStore implements IStore {
 
   originalArray: ISortable[] | null = null;
   bubbleAlgorithm: ISortingAlgortihm = new BubbleSort(
-    this.generateSortableNumbers(10, 100, 100)
+    this.generateSortableNumbers(5, 100, 100)
   );
 
   @action startAlgorithm = (algorithm: ISortingAlgortihm) => {

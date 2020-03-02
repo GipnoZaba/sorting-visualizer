@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import { ISortingAlgortihm } from "../algorithms/sortingAlgorithm";
 import { RootStoreContext } from "../app/stores/rootStore";
+import { ISortingAlgortihm } from "../algorithms/sortingAlgorithm";
 
-const VisualizationCard: React.FC<{ algorithm: ISortingAlgortihm }> = ({
+const Visualizer: React.FC<{ algorithm: ISortingAlgortihm }> = ({
   algorithm
 }) => {
   const rootStore = useContext(RootStoreContext);
@@ -12,15 +12,14 @@ const VisualizationCard: React.FC<{ algorithm: ISortingAlgortihm }> = ({
 
   return (
     <div
-      className="visualisation-card"
+      className="visualizer-window"
       onClick={() => startAlgorithm(algorithm)}
     >
-      <div style={{ textAlign: "center" }}>Roflan</div>
-      <div className="array-container">
+      <div className="visualizer">
         {algorithm.array.map(element => {
           return (
             <div
-              className="array-element"
+              className="visualizer-bar blue"
               key={element.index}
               style={{ height: `${element.getValue()}%` }}
             ></div>
@@ -31,4 +30,4 @@ const VisualizationCard: React.FC<{ algorithm: ISortingAlgortihm }> = ({
   );
 };
 
-export default observer(VisualizationCard);
+export default observer(Visualizer);
