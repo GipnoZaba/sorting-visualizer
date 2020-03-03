@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './app/styling/styles.scss';
 import './app/styling/visualizer.scss';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import App from './app/layout/App';
 import * as serviceWorker from './serviceWorker';
 
