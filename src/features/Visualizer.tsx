@@ -15,13 +15,13 @@ const Visualizer: React.FC<{ algorithm: ISortingAlgortihm }> = ({
       className="visualizer-window"
       onClick={() => startAlgorithm(algorithm)}
     >
-      <div className="visualizer">
+      <div className="visualizer bars-horizontal">
         {algorithm.array.map(element => {
           return (
             <div
               className="visualizer-bar blue"
               key={element.index}
-              style={{ height: `${element.getValue()}%` }}
+              style={{ width: `${element.getValue()}%` }}
             ></div>
           );
         })}
