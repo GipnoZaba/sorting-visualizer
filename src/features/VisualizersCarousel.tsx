@@ -9,7 +9,7 @@ const VisualizersCarousel = () => {
   const { bubbleAlgorithm } = rootStore.visualizerStore;
 
   return (
-    <div className="visualizations-carousel">
+    <div className="vizualizers-carousel">
       <VisualizationCard algorithm={bubbleAlgorithm} />
     </div>
   );
