@@ -1,7 +1,16 @@
-import { ISortable } from "../app/models/sortable";
+import { ISortable } from "./sortable";
+
+export interface IAlgorithmData {
+  title: string;
+  class: string;
+  description: string;
+  timeComplexity: string;
+  spaceComplexity: string;
+}
 
 export interface ISortingAlgortihm {
   array: ISortable[];
+  data: IAlgorithmData;
 
   algorithmIterator: Generator<
     { swapped1: ISortable; swapped2: ISortable; array: ISortable[] },

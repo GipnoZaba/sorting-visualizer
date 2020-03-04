@@ -2,7 +2,7 @@ import { RootStore } from "./rootStore";
 import { IStore } from "./store";
 import { ISortable, SortableNumber } from "../models/sortable";
 import { action } from "mobx";
-import { ISortingAlgortihm } from "../../algorithms/sortingAlgorithm";
+import { ISortingAlgortihm } from "../models/sortingAlgorithm";
 import BubbleSort from "../../algorithms/bubbleSort";
 
 export default class VisualizerStore implements IStore {

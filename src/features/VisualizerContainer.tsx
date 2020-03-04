@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { ISortingAlgortihm } from "../algorithms/sortingAlgorithm";
+import { ISortingAlgortihm } from "../app/models/sortingAlgorithm";
 import Visualizer from "./Visualizer";
 
 const VisualizerContainer: React.FC<{ algorithm: ISortingAlgortihm }> = ({

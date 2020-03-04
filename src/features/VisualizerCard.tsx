@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { ISortingAlgortihm } from "../algorithms/sortingAlgorithm";
+import { ISortingAlgortihm } from "../app/models/sortingAlgorithm";
 import VisualizerContainer from "./VisualizerContainer";
 import VisualizerInfo from "./VisualizerInfo";
 
@@ -10,7 +10,7 @@ const VisualizerCard: React.FC<{ algorithm: ISortingAlgortihm }> = ({
   return (
     <section className="vizualizer-card">
       <VisualizerContainer algorithm={algorithm} />
-      <VisualizerInfo />
+      <VisualizerInfo algorithm={algorithm} />
     </section>
   );
 };

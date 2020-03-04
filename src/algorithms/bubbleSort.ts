@@ -1,8 +1,23 @@
-import { ISortingAlgortihm } from "./sortingAlgorithm";
+import { ISortingAlgortihm, IAlgorithmData } from "../app/models/sortingAlgorithm";
 import { ISortable } from "../app/models/sortable";
 import { observable, action } from "mobx";
 
+const data: IAlgorithmData = {
+  title: "Bubble Sort",
+  class: "Comparison sort",
+  description: `Bubble sort, sometimes referred to as sinking sort,
+                is a simple sorting algorithm that repeatedly steps
+                through the list, compares adjacent elements and swaps
+                them if they are in the wrong order. The pass through
+                the list is repeated until the list is sorted.`,
+  timeComplexity: "n^2",
+  spaceComplexity: "1"
+}
+
 class BubbleSort implements ISortingAlgortihm {
+
+  data = data;
+
   @observable array: ISortable[] = [];
   algorithmIterator: Generator<
     { swapped1: ISortable; swapped2: ISortable; array: ISortable[] },
