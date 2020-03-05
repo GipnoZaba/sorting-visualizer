@@ -1,10 +1,13 @@
 import {
   ISortingAlgorithm,
-  IAlgorithmData,
-  IAnimation
+  IAlgorithmData
 } from "../app/models/sortingAlgorithm";
 import { ISortable } from "../app/models/sortable";
-import { Algorithms } from "../app/models/visualizerOptions";
+import {
+  Algorithms,
+  IAnimation,
+  AnimationTypes
+} from "../app/models/visualizerOptions";
 
 const data: IAlgorithmData = {
   title: "Insertion sort",
@@ -28,16 +31,24 @@ class InsertionSort implements ISortingAlgorithm {
 
       while (leftElementIndex >= 0 && key.isLessThan(array[leftElementIndex])) {
         array[leftElementIndex + 1] = array[leftElementIndex];
-        array[leftElementIndex] = key;
 
         animations.push({
-          type: "swap",
-          index1: leftElementIndex + 1,
-          index2: leftElementIndex
+          type: AnimationTypes.Move,
+          index1: leftElementIndex,
+          index2: leftElementIndex + 1
         });
 
         leftElementIndex--;
       }
+
+      array[leftElementIndex + 1] = key;
+
+      animations.push({
+        type: AnimationTypes.Set,
+        index1: leftElementIndex + 1,
+        index2: leftElementIndex + 1,
+        element: key
+      });
     }
 
     return animations;

@@ -1,10 +1,13 @@
 import {
   ISortingAlgorithm,
-  IAlgorithmData,
-  IAnimation
+  IAlgorithmData
 } from "../app/models/sortingAlgorithm";
 import { ISortable } from "../app/models/sortable";
-import { Algorithms } from "../app/models/visualizerOptions";
+import {
+  Algorithms,
+  AnimationTypes,
+  IAnimation
+} from "../app/models/visualizerOptions";
 
 const data: IAlgorithmData = {
   title: "Bubble Sort",
@@ -28,12 +31,22 @@ class BubbleSort implements ISortingAlgorithm {
 
     for (let i = 0; i < array.length; i++) {
       for (let j = 0; j < array.length - 1 - i; j++) {
+        animations.push({
+          type: AnimationTypes.Comparison,
+          index1: j,
+          index2: j + 1
+        });
+
         if (array[j].isGreaterThan(array[j + 1])) {
           let tmp = array[j];
           array[j] = array[j + 1];
           array[j + 1] = tmp;
 
-          animations.push({ type: "swap", index1: j, index2: j + 1 });
+          animations.push({
+            type: AnimationTypes.Swap,
+            index1: j,
+            index2: j + 1
+          });
         }
       }
     }

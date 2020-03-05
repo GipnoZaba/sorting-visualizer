@@ -2,11 +2,15 @@ import { RootStore } from "./rootStore";
 import { IStore } from "./store";
 import { ISortable, SortableNumber } from "../models/sortable";
 import { action, observable } from "mobx";
-import { ISortingAlgorithm, IAnimation } from "../models/sortingAlgorithm";
+import { ISortingAlgorithm } from "../models/sortingAlgorithm";
 import BubbleSort from "../../algorithms/bubbleSort";
 import InsertionSort from "../../algorithms/insertionSort";
 import { randomNumber } from "../common/utils/mathHelpers";
-import { Algorithms } from "../models/visualizerOptions";
+import {
+  Algorithms,
+  IAnimation,
+  AnimationTypes
+} from "../models/visualizerOptions";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -48,9 +52,25 @@ export default class VisualizerStore implements IStore {
   };
 
   @action animate(animation: IAnimation, array: ISortable[]) {
-    let tmp = array[animation.index1];
-    array[animation.index1] = array[animation.index2];
-    array[animation.index2] = tmp;
+    array.forEach(x => (x.color = "100"));
+    switch (animation.type) {
+      case AnimationTypes.Comparison:
+        break;
+      case AnimationTypes.Swap:
+        let tmp = array[animation.index1];
+        array[animation.index1] = array[animation.index2];
+        array[animation.index2] = tmp;
+        array[animation.index2].color = "0";
+        break;
+      case AnimationTypes.Move:
+        array[animation.index2] = array[animation.index1];
+        break;
+      case AnimationTypes.Set:
+        if (animation.element) {
+          array[animation.index2] = animation.element;
+        }
+        break;
+    }
   }
 
   @action generateSortableNumbers(

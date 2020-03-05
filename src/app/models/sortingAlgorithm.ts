@@ -1,5 +1,5 @@
 import { ISortable } from "./sortable";
-import { Algorithms } from "./visualizerOptions";
+import { Algorithms, IAnimation } from "./visualizerOptions";
 
 export interface IAlgorithmData {
   title: string;
@@ -7,12 +7,6 @@ export interface IAlgorithmData {
   description: string;
   timeComplexity: string;
   spaceComplexity: string;
-}
-
-export interface IAnimation {
-  type: string;
-  index1: number;
-  index2: number;
 }
 
 export interface ISortingAlgorithm {

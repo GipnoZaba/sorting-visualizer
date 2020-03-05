@@ -5,6 +5,7 @@ export interface ISortable {
   isLessThan(other: ISortable): boolean;
   getValue(): number;
   getColor(): string;
+  color: string;
   toString(): string;
 }
 
@@ -28,8 +29,9 @@ export class SortableNumber implements ISortable {
   }
 
   getColor() {
-    return `hsl(${this.getValue()}, 100%, 50%)`;
+    return `hsl(${this.color}, 100%, 50%)`;
   }
+  color = "100";
 
   toString() {
     return this.value.toString();
@@ -58,7 +60,7 @@ export class SortableColor implements ISortable {
   getColor() {
     return `hsl(${this.getValue()}, 100%, 50%)`;
   }
-
+  color = "0";
   toString() {
     return `hsl(${this.value.toString()}, 100%, 50%)`;
   }

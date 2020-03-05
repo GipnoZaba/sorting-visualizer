@@ -21,7 +21,10 @@ const Visualizer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
             <div
               className="visualizer-bar blue"
               key={index}
-              style={{ width: `${element.getValue()}%` }}
+              style={{
+                width: `${element.getValue()}%`,
+                backgroundColor: `${element.getColor()}`
+              }}
             ></div>
           );
         })}
