@@ -1,4 +1,5 @@
 import { ISortable } from "./sortable";
+import { Algorithms } from "./visualizerOptions";
 
 export interface IAlgorithmData {
   title: string;
@@ -8,20 +9,15 @@ export interface IAlgorithmData {
   spaceComplexity: string;
 }
 
-export interface ISortingAlgortihm {
-  array: ISortable[];
+export interface IAnimation {
+  type: string;
+  index1: number;
+  index2: number;
+}
+
+export interface ISortingAlgorithm {
+  type: Algorithms;
   data: IAlgorithmData;
 
-  algorithmIterator: Generator<
-    { swapped1: ISortable; swapped2: ISortable; array: ISortable[] },
-    { swapped1: null; swapped2: null; array: ISortable[] },
-    unknown
-  >;
-
-  step(): {
-    swapped1: ISortable | null;
-    swapped2: ISortable | null;
-    array: ISortable[] | null;
-    done: boolean;
-  };
+  sort: (array: ISortable[]) => IAnimation[];
 }

@@ -13,7 +13,7 @@ import VisualizerCard from "./VisualizerCard";
 const VisualizersCarousel = () => {
   const rootStore = useContext(RootStoreContext);
 
-  const { bubbleAlgorithm } = rootStore.visualizerStore;
+  const { bubbleSort, insertionSort } = rootStore.visualizerStore;
 
   return (
     <CarouselProvider
@@ -24,13 +24,13 @@ const VisualizersCarousel = () => {
     >
       <Slider>
         <Slide index={0}>
-          <VisualizerCard algorithm={bubbleAlgorithm} />
+          <VisualizerCard algorithm={bubbleSort} />
         </Slide>
         <Slide index={1}>
-          <VisualizerCard algorithm={bubbleAlgorithm} />
+          <VisualizerCard algorithm={insertionSort} />
         </Slide>
         <Slide index={2}>
-          <VisualizerCard algorithm={bubbleAlgorithm} />
+          <VisualizerCard algorithm={bubbleSort} />
         </Slide>
       </Slider>
       <div className="carousel-btn back">

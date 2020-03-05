@@ -1,9 +1,12 @@
 import { RootStore } from "./rootStore";
 import { IStore } from "./store";
 import { ISortable, SortableNumber } from "../models/sortable";
-import { action } from "mobx";
-import { ISortingAlgortihm } from "../models/sortingAlgorithm";
+import { action, observable } from "mobx";
+import { ISortingAlgorithm, IAnimation } from "../models/sortingAlgorithm";
 import BubbleSort from "../../algorithms/bubbleSort";
+import InsertionSort from "../../algorithms/insertionSort";
+import { randomNumber } from "../common/utils/mathHelpers";
+import { Algorithms } from "../models/visualizerOptions";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -12,14 +15,43 @@ export default class VisualizerStore implements IStore {
     this.rootStore = rootStore;
   }
 
-  originalArray: ISortable[] | null = null;
-  bubbleAlgorithm: ISortingAlgortihm = new BubbleSort(
-    this.generateSortableNumbers(5, 100, 100)
+  elementsCount = 100;
+  animationSpeed = 10;
+
+  bubbleSort: ISortingAlgorithm = new BubbleSort();
+  insertionSort: ISortingAlgorithm = new InsertionSort();
+
+  @observable bubbleSortArray = this.generateSortableNumbers(
+    5,
+    100,
+    this.elementsCount
+  );
+  @observable insertionSortArray = this.generateSortableNumbers(
+    5,
+    100,
+    this.elementsCount
   );
 
-  @action startAlgorithm = (algorithm: ISortingAlgortihm) => {
-    setInterval(() => algorithm.step(), 10);
+  @action sortArray = (algorithm: Algorithms) => {
+    let animations: IAnimation[] = [];
+
+    let sortingAlgorithm = this.getAlgorithm(algorithm);
+    let array = this.getArray(algorithm);
+    animations = sortingAlgorithm.sort(array);
+
+    setInterval(() => {
+      let animation = animations.shift();
+      if (animation) {
+        this.animate(animation, array);
+      }
+    }, this.animationSpeed);
   };
+
+  @action animate(animation: IAnimation, array: ISortable[]) {
+    let tmp = array[animation.index1];
+    array[animation.index1] = array[animation.index2];
+    array[animation.index2] = tmp;
+  }
 
   @action generateSortableNumbers(
     from: number,
@@ -29,11 +61,27 @@ export default class VisualizerStore implements IStore {
     let array: ISortable[] = [];
 
     for (let i = 0; i < count; i++) {
-      array.push(
-        new SortableNumber(Math.round(Math.random() * (to - from) + from))
-      );
+      array.push(new SortableNumber(randomNumber(from, to)));
     }
 
     return array;
   }
+
+  getAlgorithm = (algorithm: Algorithms): ISortingAlgorithm => {
+    switch (algorithm) {
+      case Algorithms.BubbleSort:
+        return this.bubbleSort;
+      case Algorithms.InsertionSort:
+        return this.insertionSort;
+    }
+  };
+
+  getArray = (algorithm: Algorithms): ISortable[] => {
+    switch (algorithm) {
+      case Algorithms.BubbleSort:
+        return this.bubbleSortArray;
+      case Algorithms.InsertionSort:
+        return this.insertionSortArray;
+    }
+  };
 }
