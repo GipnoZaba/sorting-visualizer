@@ -36,19 +36,32 @@ export default class VisualizerStore implements IStore {
     this.elementsCount
   );
 
-  @action sortArray = (algorithm: Algorithms) => {
-    let animations: IAnimation[] = [];
+  bubbleSortAnimations: IAnimation[] = [];
+  insertionSortAnimations: IAnimation[] = [];
 
-    let sortingAlgorithm = this.getAlgorithm(algorithm);
-    let array = this.getArray(algorithm);
-    animations = sortingAlgorithm.sort(array);
+  bubbleSortIsAnimating = false;
+  insertionSortIsAnimating = false;
 
-    setInterval(() => {
-      let animation = animations.shift();
-      if (animation) {
-        this.animate(animation, array);
-      }
-    }, this.animationSpeed);
+  @action triggerSorting = (algorithm: Algorithms) => {
+    this.triggerIsAnimating(algorithm);
+
+    if (this.getAnimations(algorithm).length === 0) {
+      let sortingAlgorithm = this.getAlgorithm(algorithm);
+      let array = this.getArray(algorithm);
+      let animations = this.setAnimations(
+        algorithm,
+        sortingAlgorithm.sort(array)
+      );
+
+      setInterval(() => {
+        if (this.isAnimating(algorithm)) {
+          let animation = animations.shift();
+          if (animation) {
+            this.animate(animation, array);
+          }
+        }
+      }, this.animationSpeed);
+    }
   };
 
   @action animate(animation: IAnimation, array: ISortable[]) {
@@ -64,6 +77,7 @@ export default class VisualizerStore implements IStore {
         break;
       case AnimationTypes.Move:
         array[animation.index2] = array[animation.index1];
+        array[animation.index2].color = "200";
         break;
       case AnimationTypes.Set:
         if (animation.element) {
@@ -102,6 +116,49 @@ export default class VisualizerStore implements IStore {
         return this.bubbleSortArray;
       case Algorithms.InsertionSort:
         return this.insertionSortArray;
+    }
+  };
+
+  getAnimations = (algorithm: Algorithms): IAnimation[] => {
+    switch (algorithm) {
+      case Algorithms.BubbleSort:
+        return this.bubbleSortAnimations;
+      case Algorithms.InsertionSort:
+        return this.insertionSortAnimations;
+    }
+  };
+
+  setAnimations = (
+    algorithm: Algorithms,
+    animations: IAnimation[]
+  ): IAnimation[] => {
+    switch (algorithm) {
+      case Algorithms.BubbleSort:
+        this.bubbleSortAnimations = animations;
+        return this.bubbleSortAnimations;
+      case Algorithms.InsertionSort:
+        this.insertionSortAnimations = animations;
+        return this.insertionSortAnimations;
+    }
+  };
+
+  isAnimating = (algorithm: Algorithms): boolean => {
+    switch (algorithm) {
+      case Algorithms.BubbleSort:
+        return this.bubbleSortIsAnimating;
+      case Algorithms.InsertionSort:
+        return this.insertionSortIsAnimating;
+    }
+  };
+
+  triggerIsAnimating = (algorithm: Algorithms) => {
+    switch (algorithm) {
+      case Algorithms.BubbleSort:
+        this.bubbleSortIsAnimating = !this.bubbleSortIsAnimating;
+        break;
+      case Algorithms.InsertionSort:
+        this.insertionSortIsAnimating = !this.insertionSortIsAnimating;
+        break;
     }
   };
 }

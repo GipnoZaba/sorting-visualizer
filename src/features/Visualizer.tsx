@@ -8,12 +8,12 @@ const Visualizer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
 }) => {
   const rootStore = useContext(RootStoreContext);
 
-  const { sortArray, getArray } = rootStore.visualizerStore;
+  const { triggerSorting, getArray } = rootStore.visualizerStore;
 
   return (
     <div
       className="visualizer-window"
-      onClick={() => sortArray(algorithm.type)}
+      onClick={() => triggerSorting(algorithm.type)}
     >
       <div className="visualizer bars-horizontal">
         {getArray(algorithm.type).map((element, index) => {

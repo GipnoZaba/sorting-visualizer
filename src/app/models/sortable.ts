@@ -1,4 +1,4 @@
-import { clamp } from "../common/utils/mathHelpers";
+import { clamp, remap } from "../common/utils/mathHelpers";
 
 export interface ISortable {
   isGreaterThan(other: ISortable): boolean;
