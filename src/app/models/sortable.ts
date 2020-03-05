@@ -2,6 +2,7 @@ import { clamp } from "../common/utils/mathHelpers";
 
 export interface ISortable {
   isGreaterThan(other: ISortable): boolean;
+  isLessThan(other: ISortable): boolean;
   getValue(): number;
   getColor(): string;
   toString(): string;
@@ -16,6 +17,10 @@ export class SortableNumber implements ISortable {
 
   isGreaterThan(other: ISortable) {
     return this.getValue() > other.getValue();
+  }
+
+  isLessThan(other: ISortable) {
+    return this.getValue() < other.getValue();
   }
 
   getValue() {
@@ -40,6 +45,10 @@ export class SortableColor implements ISortable {
 
   isGreaterThan(other: ISortable) {
     return this.getValue() > other.getValue();
+  }
+
+  isLessThan(other: ISortable) {
+    return this.getValue() < other.getValue();
   }
 
   getValue() {

@@ -19,9 +19,26 @@ class InsertionSort implements ISortingAlgorithm {
   data = data;
 
   sort(array: ISortable[]) {
+    array = array.slice();
     var animations: IAnimation[] = [];
 
-    
+    for (let i = 1; i < array.length; i++) {
+      let key = array[i];
+      let leftElementIndex = i - 1;
+
+      while (leftElementIndex >= 0 && key.isLessThan(array[leftElementIndex])) {
+        array[leftElementIndex + 1] = array[leftElementIndex];
+        array[leftElementIndex] = key;
+
+        animations.push({
+          type: "swap",
+          index1: leftElementIndex + 1,
+          index2: leftElementIndex
+        });
+
+        leftElementIndex--;
+      }
+    }
 
     return animations;
   }
