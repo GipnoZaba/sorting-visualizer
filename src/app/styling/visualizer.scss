@@ -12,7 +12,7 @@ h3 {
 	color: $color-secondary;
 }
 
-/* ----- Visualizer ----- */
+/* ----- Visualizer-carousel ----- */
 
 .vizualizers-carousel {
 
@@ -59,6 +59,8 @@ h3 {
 	background-color: white;
 	border-radius: 5px;
 }
+
+/* ----- Visualizer ----- */
 
 .vizualizer-container {
 	position: relative;
@@ -149,6 +151,8 @@ h3 {
 	}
 }
 
+/* ----- Visualizer-info ----- */
+
 .title {
 	h1 {
 		margin-bottom: 0.1em;
@@ -181,3 +185,37 @@ h3 {
 		margin-bottom: 0.5em;
 	}
 }
+
+
+
+/* Style the tab buttons */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+/* Change background color of buttons on hover */
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Set default styles for tab content */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 50px;
+  text-align: center;
+}
+
+/* Style each tab content individually */
+#London {background-color:red;}
+#Paris {background-color:green;}
+#Tokyo {background-color:blue;}
+#Oslo {background-color:orange;}
