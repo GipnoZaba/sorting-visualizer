@@ -5,12 +5,15 @@ import { action, observable } from "mobx";
 import { ISortingAlgorithm } from "../models/sortingAlgorithm";
 import BubbleSort from "../../algorithms/bubbleSort";
 import InsertionSort from "../../algorithms/insertionSort";
-import { randomNumber } from "../common/utils/mathHelpers";
 import {
   Algorithms,
   IAnimation,
   AnimationTypes
 } from "../models/visualizerOptions";
+import {
+  generateSortableNumbers,
+  generateSteadySortableNumbers
+} from "../common/utils/arrayHelpers";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -25,12 +28,12 @@ export default class VisualizerStore implements IStore {
   bubbleSort: ISortingAlgorithm = new BubbleSort();
   insertionSort: ISortingAlgorithm = new InsertionSort();
 
-  @observable bubbleSortArray = this.generateSortableNumbers(
+  @observable bubbleSortArray = generateSortableNumbers(
     5,
     100,
     this.elementsCount
   );
-  @observable insertionSortArray = this.generateSortableNumbers(
+  @observable insertionSortArray = generateSortableNumbers(
     5,
     100,
     this.elementsCount
@@ -50,14 +53,17 @@ export default class VisualizerStore implements IStore {
       let array = this.getArray(algorithm);
       let animations = this.setAnimations(
         algorithm,
-        sortingAlgorithm.sort(array)
+        sortingAlgorithm.sort(array).filter(x => x.type !== AnimationTypes.Comparison)
       );
 
-      setInterval(() => {
+      var interval = setInterval(() => {
         if (this.isAnimating(algorithm)) {
           let animation = animations.shift();
           if (animation) {
             this.animate(animation, array);
+          } else {
+            this.triggerIsAnimating(algorithm);
+            clearInterval(interval);
           }
         }
       }, this.animationSpeed);
@@ -87,18 +93,35 @@ export default class VisualizerStore implements IStore {
     }
   }
 
-  @action generateSortableNumbers(
-    from: number,
-    to: number,
-    count: number
-  ): ISortable[] {
-    let array: ISortable[] = [];
+  @action getRandomArray = (algorithm: Algorithms) => {
+    this.resetArray(algorithm);
 
-    for (let i = 0; i < count; i++) {
-      array.push(new SortableNumber(randomNumber(from, to)));
+    this.setArray(
+      algorithm,
+      generateSortableNumbers(0, 100, this.elementsCount)
+    );
+  };
+
+  @action getSteadyArray = (algorithm: Algorithms) => {
+    this.resetArray(algorithm);
+
+    this.setArray(algorithm, generateSteadySortableNumbers(this.elementsCount));
+  };
+
+  @action getReversedArray = (algorithm: Algorithms) => {
+    this.resetArray(algorithm);
+
+    let array: ISortable[] = [];
+    for (let i = 1; i <= this.elementsCount; i++) {
+      array.unshift(new SortableNumber(i));
     }
 
-    return array;
+    this.setArray(algorithm, array);
+  };
+
+  @action resetArray(algorithm: Algorithms) {
+    this.setAnimations(algorithm, []);
+    if (this.isAnimating(algorithm)) this.triggerIsAnimating(algorithm);
   }
 
   getAlgorithm = (algorithm: Algorithms): ISortingAlgorithm => {
@@ -116,6 +139,17 @@ export default class VisualizerStore implements IStore {
         return this.bubbleSortArray;
       case Algorithms.InsertionSort:
         return this.insertionSortArray;
+    }
+  };
+
+  setArray = (algorithm: Algorithms, array: ISortable[]) => {
+    switch (algorithm) {
+      case Algorithms.BubbleSort:
+        this.bubbleSortArray = array;
+        break;
+      case Algorithms.InsertionSort:
+        this.insertionSortArray = array;
+        break;
     }
   };
 

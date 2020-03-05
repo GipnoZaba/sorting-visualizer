@@ -12,11 +12,6 @@ h3 {
 	color: $color-secondary;
 }
 
-img {
-	max-width: 100%;
-	filter: drop-shadow(1px 1px 3px $color-secondary);
-}
-
 /* ----- Visualizer ----- */
 
 .vizualizers-carousel {
@@ -94,22 +89,29 @@ img {
 .array-types {
 	background: radial-gradient(#e5f89e, #96e001);
 	border-radius: 0px 0px 15px 15px;
-	background-color: #fff;
 	box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.3);
 
 	ul {
 		display: flex;
 		flex-wrap: wrap;
 		list-style-type: none;
-		justify-content: space-evenly;
-		padding: 0;
+		justify-content: space-around;
+		padding: 0.5em 0;
 	}
 
 	li {
-		width: 1fr;
-		height: 1fr;
-		border: 1px solid $color-secondary;
-		border-radius: 3px;
+		text-align: center;
+		cursor: pointer;
+		background-color: royalblue;
+
+		width: 60px;
+		height: 60px;
+		line-height: 60px;
+
+		&:hover {
+			background: rebeccapurple;
+			transition: all .2s ease-in-out;
+		}
 	}
 }
 

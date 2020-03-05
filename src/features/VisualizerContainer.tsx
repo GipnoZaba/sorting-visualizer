@@ -1,40 +1,25 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useContext } from "react";
 import { ISortingAlgorithm } from "../app/models/sortingAlgorithm";
 import Visualizer from "./Visualizer";
+import { RootStoreContext } from "../app/stores/rootStore";
 
 const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   algorithm
 }) => {
+  const rootStore = useContext(RootStoreContext);
+
+  const { getRandomArray, getSteadyArray, getReversedArray } = rootStore.visualizerStore;
+
   return (
     <div className="vizualizer-container">
       <Visualizer algorithm={algorithm} />
       <div className="array-types">
         <ul>
-          <li>
-            <img
-              src="https://res.cloudinary.com/john-mantas/image/upload/v1537302064/codepen/delicious-apples/green-apple2.png"
-              alt="green apple"
-            />
-          </li>
-          <li>
-            <img
-              src="https://res.cloudinary.com/john-mantas/image/upload/v1537303532/codepen/delicious-apples/half-apple.png"
-              alt="half apple"
-            />
-          </li>
-          <li>
-            <img
-              src="https://res.cloudinary.com/john-mantas/image/upload/v1537303160/codepen/delicious-apples/green-apple-flipped.png"
-              alt="green apple"
-            />
-          </li>
-          <li>
-            <img
-              src="https://res.cloudinary.com/john-mantas/image/upload/v1537303708/codepen/delicious-apples/apple-top.png"
-              alt="apple top"
-            />
-          </li>
+          <li onClick={() => getRandomArray(algorithm.type)}>Rand</li>
+          <li onClick={() => getSteadyArray(algorithm.type)}>Uni</li>
+          <li onClick={() => getReversedArray(algorithm.type)}>Rev</li>
+          <li>D</li>
         </ul>
       </div>
     </div>
