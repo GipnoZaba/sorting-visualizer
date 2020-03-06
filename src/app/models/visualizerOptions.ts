@@ -1,8 +1,8 @@
 import { ISortable } from "./sortable";
 
 export enum Algorithms {
-  BubbleSort,
-  InsertionSort
+  BubbleSort = "bubbleSort",
+  InsertionSort = "insertionSort"
 }
 
 export interface IAnimation {

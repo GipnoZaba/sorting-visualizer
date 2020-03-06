@@ -69,7 +69,6 @@ h3 {
 	grid-template-rows: 1fr;
 	width: 100%;
 	height: 100%;
-	border-radius: 6px;
 	border-radius: 8px 8px 0 0;
 }
 
@@ -153,6 +152,13 @@ h3 {
 
 /* ----- Visualizer-info ----- */
 
+.info-panel {
+	display: flex;
+	flex-direction: column;
+	right: 1.25em;
+	position: relative;
+}
+
 .title {
 	h1 {
 		margin-bottom: 0.1em;
@@ -167,55 +173,39 @@ h3 {
 	}
 }
 
-.info-tab {
-	margin: 2em 0;
+.tabs {
+	display: flex;
 
-	h3 {
-		margin-bottom: 1em;
-	}
+	&>.tablink {
+		background-color: #555;
+		color: white;
+		float: left;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		padding: 14px 16px;
+		font-size: 17px;
+		flex: 1;
 
-	ul {
-		font-size: 0.8em;
-		list-style: disc;
-		list-style-type: none;
-	}
+		&:first-child {
+			border-top-left-radius: 5px;
+		}
 
-	li {
-		text-indent: -0.6em;
-		margin-bottom: 0.5em;
-	}
+		&:last-child {
+			border-top-right-radius: 5px;
+		}
+  
+		&:hover {
+			background-color: #777;
+		}
+  	}
 }
 
-
-
-/* Style the tab buttons */
-.tablink {
-  background-color: #555;
-  color: white;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 25%;
-}
-
-/* Change background color of buttons on hover */
-.tablink:hover {
-  background-color: #777;
-}
-
-/* Set default styles for tab content */
 .tabcontent {
-  color: white;
-  display: none;
-  padding: 50px;
-  text-align: center;
-}
-
-/* Style each tab content individually */
-#London {background-color:red;}
-#Paris {background-color:green;}
-#Tokyo {background-color:blue;}
-#Oslo {background-color:orange;}
+	color: black;
+	display: none;
+	padding: 50px;
+	text-align: center;
+	background-color: rgb(202, 198, 182);
+	border-radius: 0 0 5px 5px;
+}	

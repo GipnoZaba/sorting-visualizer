@@ -7,7 +7,7 @@ const VisualizerInfo: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   algorithm
 }) => {
   return (
-    <div>
+    <div className="info-panel">
       <div className="title">
         <h1>{algorithm.data.title}</h1>
         <span>{algorithm.data.class}</span>
