@@ -1,14 +1,13 @@
-import React, { Fragment } from "react";
+import React from "react";
 import VisualizersCarousel from "../../features/VisualizersCarousel";
 import { observer } from "mobx-react-lite";
+import Container from "@material-ui/core/Container";
 
 const App = () => {
   return (
-    <Fragment>
+    <Container>
       <VisualizersCarousel />
-      <div style={{width: "200px", height: "200px", backgroundColor: "blue"}}>
-      </div>
-    </Fragment>
+    </Container>
   );
 };
 

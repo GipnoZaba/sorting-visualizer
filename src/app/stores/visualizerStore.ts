@@ -14,6 +14,7 @@ import {
   generateSortableNumbers,
   generateSteadySortableNumbers
 } from "../common/utils/arrayHelpers";
+import { customColors } from "../styling/colors";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -71,7 +72,7 @@ export default class VisualizerStore implements IStore {
   };
 
   @action animate(animation: IAnimation, array: ISortable[]) {
-    array.forEach(x => (x.color = "100"));
+    array.forEach(x => (x.color = customColors.primary));
     switch (animation.type) {
       case AnimationTypes.Comparison:
         break;
@@ -79,11 +80,11 @@ export default class VisualizerStore implements IStore {
         let tmp = array[animation.index1];
         array[animation.index1] = array[animation.index2];
         array[animation.index2] = tmp;
-        array[animation.index2].color = "0";
+        array[animation.index2].color = customColors.secondaryDark;
         break;
       case AnimationTypes.Move:
         array[animation.index2] = array[animation.index1];
-        array[animation.index2].color = "200";
+        array[animation.index2].color = customColors.secondary;
         break;
       case AnimationTypes.Set:
         if (animation.element) {

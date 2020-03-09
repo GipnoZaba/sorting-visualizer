@@ -1,20 +1,52 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { ISortingAlgorithm } from "../app/models/sortingAlgorithm";
-import TabGroup from "./TabGroup";
+import InfoTabs from "./InfoTabs";
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  Box,
+  Typography,
+  Chip,
+  Tooltip
+} from "@material-ui/core";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    tags: {
+      display: "flex",
+      flexWrap: "wrap",
+      "& > *": {
+        margin: theme.spacing(0.5)
+      }
+    }
+  })
+);
 
 const VisualizerInfo: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   algorithm
 }) => {
-  return (
-    <div className="info-panel">
-      <div className="title">
-        <h1>{algorithm.data.title}</h1>
-        <span>{algorithm.data.class}</span>
-      </div>
+  const classes = useStyles();
 
-      <TabGroup algorithm={algorithm} />
-    </div>
+  return (
+    <Box>
+      <Typography variant="h2">{algorithm.data.title}</Typography>
+      <div className={classes.tags}>
+        <Tooltip title="Link?" interactive>
+          <Chip
+            label={"Θ(" + algorithm.data.timeComplexity + ")"}
+            color="primary"
+          />
+        </Tooltip>
+
+        <Chip
+          label={"O(" + algorithm.data.spaceComplexity + ")"}
+          color="primary"
+        />
+      </div>
+      <InfoTabs algorithm={algorithm} />
+    </Box>
   );
 };
 

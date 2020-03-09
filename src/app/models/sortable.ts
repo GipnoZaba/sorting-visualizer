@@ -1,4 +1,5 @@
 import { clamp, remap } from "../common/utils/mathHelpers";
+import { customColors } from "../styling/colors";
 
 export interface ISortable {
   isGreaterThan(other: ISortable): boolean;
@@ -29,9 +30,9 @@ export class SortableNumber implements ISortable {
   }
 
   getColor() {
-    return `hsl(${this.color}, 100%, 50%)`;
+    return this.color;
   }
-  color = "100";
+  color = customColors.primary;
 
   toString() {
     return this.value.toString();
