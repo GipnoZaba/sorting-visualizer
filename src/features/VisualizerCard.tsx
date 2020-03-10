@@ -30,13 +30,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const VisualizerCard: React.FC<{ algorithm: ISortingAlgorithm }> = ({
-  algorithm
-}) => {
+const VisualizerCard: React.FC<{
+  algorithm: ISortingAlgorithm;
+  visible: boolean;
+}> = ({ algorithm, visible }) => {
   const classes = useStyles();
 
   return (
-    <Card raised className={classes.card}>
+    <Card
+      raised
+      className={classes.card}
+      style={{ display: visible ? "block" : "none" }}
+    >
       <CardContent className={classes["card-content"]}>
         <VisualizerContainer algorithm={algorithm} />
         <VisualizerInfo algorithm={algorithm} />

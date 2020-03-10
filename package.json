@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@types/brainhubeu__react-carousel": "^1.10.2",
     "gh-pages": "^2.2.0"
   }
 }
