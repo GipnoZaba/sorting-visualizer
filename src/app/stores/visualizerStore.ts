@@ -27,7 +27,7 @@ export default class VisualizerStore implements IStore {
   }
 
   elementsCount = 100;
-  animationSpeed = 10;
+  animationSpeed = 100;
 
   algorithmsMap = new Map<Algorithms, ISortingAlgorithm>();
   @observable arraysMap = new Map<Algorithms, ISortable[]>();

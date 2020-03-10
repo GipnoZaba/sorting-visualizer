@@ -65,7 +65,7 @@ const VisualizersCarousel = () => {
         className={classes.button}
         variant="contained"
         color="primary"
-        onClick={() => nextSlide()}
+        onClick={() => prevSlide()}
       >
         Back
       </Button>
@@ -87,7 +87,7 @@ const VisualizersCarousel = () => {
         className={classes.button}
         variant="contained"
         color="primary"
-        onClick={() => prevSlide()}
+        onClick={() => nextSlide()}
       >
         Next
       </Button>
