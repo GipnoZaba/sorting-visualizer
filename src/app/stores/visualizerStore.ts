@@ -15,46 +15,56 @@ import {
   generateSteadySortableNumbers
 } from "../common/utils/arrayHelpers";
 import { customColors } from "../styling/colors";
+import SelectionSort from "../../algorithms/selectionSort";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
+
+    this.initAlgorithms();
   }
 
   elementsCount = 100;
   animationSpeed = 10;
 
-  bubbleSort: ISortingAlgorithm = new BubbleSort();
-  insertionSort: ISortingAlgorithm = new InsertionSort();
+  algorithmsMap = new Map<Algorithms, ISortingAlgorithm>();
+  @observable arraysMap = new Map<Algorithms, ISortable[]>();
+  animationsMap = new Map<Algorithms, IAnimation[]>();
+  @observable animatingMap = new Map<Algorithms, boolean>();
 
-  @observable bubbleSortArray = generateSortableNumbers(
-    5,
-    100,
-    this.elementsCount
-  );
-  @observable insertionSortArray = generateSortableNumbers(
-    5,
-    100,
-    this.elementsCount
-  );
+  @action initAlgorithms = () => {
+    this.algorithmsMap.set(Algorithms.BubbleSort, new BubbleSort());
+    this.algorithmsMap.set(Algorithms.InsertionSort, new InsertionSort());
+    this.algorithmsMap.set(Algorithms.SelectionSort, new SelectionSort());
 
-  bubbleSortAnimations: IAnimation[] = [];
-  insertionSortAnimations: IAnimation[] = [];
-
-  bubbleSortIsAnimating = false;
-  insertionSortIsAnimating = false;
+    this.algorithmsMap.forEach(x =>
+      this.arraysMap.set(
+        x.type,
+        generateSortableNumbers(1, 100, this.elementsCount)
+      )
+    );
+  };
 
   @action triggerSorting = (algorithm: Algorithms) => {
     this.triggerIsAnimating(algorithm);
 
-    if (this.getAnimations(algorithm).length === 0) {
+    let animations = this.getAnimations(algorithm);
+    let noAnimations = false;
+
+    if (animations !== undefined) {
+      noAnimations = animations.length === 0;
+    }
+
+    if (noAnimations) {
       let sortingAlgorithm = this.getAlgorithm(algorithm);
       let array = this.getArray(algorithm);
       let animations = this.setAnimations(
         algorithm,
-        sortingAlgorithm.sort(array).filter(x => x.type !== AnimationTypes.Comparison)
+        sortingAlgorithm
+          .sort(array)
+          .filter(x => x.type !== AnimationTypes.Comparison)
       );
 
       var interval = setInterval(() => {
@@ -75,10 +85,13 @@ export default class VisualizerStore implements IStore {
     array.forEach(x => (x.color = customColors.primary));
     switch (animation.type) {
       case AnimationTypes.Comparison:
+        array[animation.index1].color = customColors.complementaryDark;
+        array[animation.index2].color = customColors.complementaryDark;
         break;
       case AnimationTypes.Swap:
         let tmp = array[animation.index1];
         array[animation.index1] = array[animation.index2];
+        array[animation.index1].color = customColors.secondaryDark;
         array[animation.index2] = tmp;
         array[animation.index2].color = customColors.secondaryDark;
         break;
@@ -126,74 +139,34 @@ export default class VisualizerStore implements IStore {
   }
 
   getAlgorithm = (algorithm: Algorithms): ISortingAlgorithm => {
-    switch (algorithm) {
-      case Algorithms.BubbleSort:
-        return this.bubbleSort;
-      case Algorithms.InsertionSort:
-        return this.insertionSort;
-    }
+    return this.algorithmsMap.get(algorithm) ?? new BubbleSort();
   };
 
   getArray = (algorithm: Algorithms): ISortable[] => {
-    switch (algorithm) {
-      case Algorithms.BubbleSort:
-        return this.bubbleSortArray;
-      case Algorithms.InsertionSort:
-        return this.insertionSortArray;
-    }
+    return this.arraysMap.get(algorithm) ?? [];
   };
 
-  setArray = (algorithm: Algorithms, array: ISortable[]) => {
-    switch (algorithm) {
-      case Algorithms.BubbleSort:
-        this.bubbleSortArray = array;
-        break;
-      case Algorithms.InsertionSort:
-        this.insertionSortArray = array;
-        break;
-    }
+  @action setArray = (algorithm: Algorithms, array: ISortable[]) => {
+    this.arraysMap.set(algorithm, array);
   };
 
   getAnimations = (algorithm: Algorithms): IAnimation[] => {
-    switch (algorithm) {
-      case Algorithms.BubbleSort:
-        return this.bubbleSortAnimations;
-      case Algorithms.InsertionSort:
-        return this.insertionSortAnimations;
-    }
+    return this.animationsMap.get(algorithm) ?? [];
   };
 
   setAnimations = (
     algorithm: Algorithms,
     animations: IAnimation[]
   ): IAnimation[] => {
-    switch (algorithm) {
-      case Algorithms.BubbleSort:
-        this.bubbleSortAnimations = animations;
-        return this.bubbleSortAnimations;
-      case Algorithms.InsertionSort:
-        this.insertionSortAnimations = animations;
-        return this.insertionSortAnimations;
-    }
+    this.animationsMap.set(algorithm, animations);
+    return this.animationsMap.get(algorithm) ?? [];
   };
 
   isAnimating = (algorithm: Algorithms): boolean => {
-    switch (algorithm) {
-      case Algorithms.BubbleSort:
-        return this.bubbleSortIsAnimating;
-      case Algorithms.InsertionSort:
-        return this.insertionSortIsAnimating;
-    }
+    return this.animatingMap.get(algorithm) ?? false;
   };
 
-  triggerIsAnimating = (algorithm: Algorithms) => {
-    switch (algorithm) {
-      case Algorithms.BubbleSort:
-        this.bubbleSortIsAnimating = !this.bubbleSortIsAnimating;
-        break;
-      case Algorithms.InsertionSort:
-        this.insertionSortIsAnimating = !this.insertionSortIsAnimating;
-        break;
-    }
+  @action triggerIsAnimating = (algorithm: Algorithms) => {
+    this.animatingMap.set(algorithm, !this.isAnimating(algorithm));
   };
 }

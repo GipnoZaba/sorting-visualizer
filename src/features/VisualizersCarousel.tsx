@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useState } from "react";
+import React, { useContext, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../app/stores/rootStore";
 import VisualizerCard from "./VisualizerCard";
@@ -10,6 +10,7 @@ import {
   createStyles
 } from "@material-ui/core"; //maaaaaaaau
 import { customColors } from "../app/styling/colors";
+import { Algorithms } from "../app/models/visualizerOptions";
 //tut potsemu to net kotika a vernee pusisti
 //if sirlja kotik import kotik to Tartu from TALLINN
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     carousel: {
       height: "100%",
+      width: "100%",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between"
@@ -24,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       height: "6em",
       width: "4em",
+      backgroundColor: "transparent",
       border: "solid",
       borderWidth: "0.2em",
       borderColor: customColors.complementary
@@ -36,12 +39,12 @@ const VisualizersCarousel = () => {
 
   const rootStore = useContext(RootStoreContext);
 
-  const { bubbleSort, insertionSort } = rootStore.visualizerStore;
+  const { getAlgorithm } = rootStore.visualizerStore;
 
   const [currentCard, setCurrentCard] = useState(1);
 
   const nextSlide = () => {
-    if (currentCard >= 2) {
+    if (currentCard >= 3) {
       setCurrentCard(1);
     } else {
       setCurrentCard(currentCard + 1);
@@ -50,7 +53,7 @@ const VisualizersCarousel = () => {
 
   const prevSlide = () => {
     if (currentCard <= 1) {
-      setCurrentCard(2);
+      setCurrentCard(3);
     } else {
       setCurrentCard(currentCard - 1);
     }
@@ -67,8 +70,18 @@ const VisualizersCarousel = () => {
         Back
       </Button>
 
-      <VisualizerCard algorithm={bubbleSort} visible={currentCard === 1} />
-      <VisualizerCard algorithm={insertionSort} visible={currentCard === 2} />
+      <VisualizerCard
+        algorithm={getAlgorithm(Algorithms.BubbleSort)}
+        visible={currentCard === 1}
+      />
+      <VisualizerCard
+        algorithm={getAlgorithm(Algorithms.InsertionSort)}
+        visible={currentCard === 2}
+      />
+      <VisualizerCard
+        algorithm={getAlgorithm(Algorithms.SelectionSort)}
+        visible={currentCard === 3}
+      />
 
       <Button
         className={classes.button}

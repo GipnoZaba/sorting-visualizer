@@ -1,5 +1,6 @@
-import { clamp, remap } from "../common/utils/mathHelpers";
+import { clamp } from "../common/utils/mathHelpers";
 import { customColors } from "../styling/colors";
+import { observable } from "mobx";
 
 export interface ISortable {
   isGreaterThan(other: ISortable): boolean;
@@ -32,7 +33,7 @@ export class SortableNumber implements ISortable {
   getColor() {
     return this.color;
   }
-  color = customColors.primary;
+  @observable color = customColors.primary;
 
   toString() {
     return this.value.toString();

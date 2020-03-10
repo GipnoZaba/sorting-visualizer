@@ -9,12 +9,14 @@ import {
   Box,
   Typography,
   Chip,
-  Tooltip
+  Tooltip,
+  Divider
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     tags: {
+      marginTop: "1em",
       display: "flex",
       flexWrap: "wrap",
       "& > *": {
@@ -32,6 +34,7 @@ const VisualizerInfo: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   return (
     <Box>
       <Typography variant="h2">{algorithm.data.title}</Typography>
+      <Divider variant="fullWidth" />
       <div className={classes.tags}>
         <Tooltip title="Link?" interactive>
           <Chip

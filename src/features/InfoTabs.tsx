@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ISortingAlgorithm } from "../app/models/sortingAlgorithm";
 import {
   ButtonGroup,

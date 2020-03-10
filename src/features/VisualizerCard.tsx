@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "visible",
       backgroundColor: customColors.greyLight,
       borderBottomStyle: "solid",
-      borderWidth: "2px",
+      borderWidth: "3px",
       borderColor: customColors.primaryDark
     },
     "card-content": {

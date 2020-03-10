@@ -7,9 +7,6 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } 
@@ -21,4 +18,12 @@ body {
 	top: 0;
   left: 0;
   background: linear-gradient(45deg,#3949AB,#1E88E5);
+}
+
+#pauseIcon {
+  display: none;
+}
+
+#visualizerArea:hover > #pauseIcon {
+  display: block;
 }

@@ -14,13 +14,16 @@ import {
   CardContent
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      overflow: "visible",
       height: "30em",
       position: "relative",
-      right: "5em",
+      right: "2.5em",
       display: "flex",
       flexDirection: "column",
       borderBottomStyle: "solid",
@@ -31,7 +34,13 @@ const useStyles = makeStyles((theme: Theme) =>
       flexBasis: "90%",
       border: "dashed",
       borderWidth: "3px",
-      borderColor: customColors.primaryLight
+      borderColor: customColors.primaryLight,
+      "&:hover": {
+        border: "solid",
+        background: customColors.grey,
+        borderColor: customColors.primary,
+        borderWidth: "3px"
+      }
     },
     content: {
       height: "100%",
@@ -40,6 +49,20 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     buttons: {
       flexBasis: "10%"
+    },
+    icon: {
+      zIndex: 1,
+      position: "absolute",
+      left: "50%",
+      marginLeft: "-25%",
+      top: "50%",
+      marginTop: "-25%",
+      width: "5em",
+      height: "5em",
+      color: "white",
+      "&:hover": {
+        transform: "scale(1.02)"
+      }
     }
   })
 );
@@ -54,15 +77,23 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
     getRandomArray,
     getSteadyArray,
     getReversedArray,
-    triggerSorting
+    triggerSorting,
+    isAnimating
   } = rootStore.visualizerStore;
 
   return (
     <Card raised className={classes.root}>
       <CardActionArea
+        id="visualizerArea"
         className={classes.actionArea}
         onClick={() => triggerSorting(algorithm.type)}
       >
+        {isAnimating(algorithm.type) ? ( 
+          <PauseCircleOutlineIcon id="pauseIcon" className={classes.icon} />
+        ) : (
+          <PlayCircleOutlineIcon id="playIcon" className={classes.icon} />
+        )}
+
         <CardContent className={classes.content}>
           <Visualizer algorithm={algorithm} />
         </CardContent>

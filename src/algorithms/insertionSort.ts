@@ -12,7 +12,7 @@ import {
 const data: IAlgorithmData = {
   title: "Insertion sort",
   class: "Comparison sort",
-  description: ``,
+  description: "",
   timeComplexity: "n^2",
   spaceComplexity: "1"
 };
@@ -31,6 +31,12 @@ class InsertionSort implements ISortingAlgorithm {
 
       while (leftElementIndex >= 0 && key.isLessThan(array[leftElementIndex])) {
         array[leftElementIndex + 1] = array[leftElementIndex];
+
+        animations.push({
+          type: AnimationTypes.Comparison,
+          index1: leftElementIndex,
+          index2: leftElementIndex + 1
+        });
 
         animations.push({
           type: AnimationTypes.Move,
