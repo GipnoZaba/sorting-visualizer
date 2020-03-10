@@ -9,8 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     visualizer: {
       width: "100%",
-      height: "100%",
-      backgroundColor: customColors.grey
+      height: "100%"
     },
     vertical: {
       display: "grid",
@@ -24,7 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "flex-end"
     },
     bar: {
-      height: "100%"
+      display: "flex",
+      height: "100%",
+      borderRadius: "0 2px 2px 0"
     }
   })
 );
@@ -41,14 +42,20 @@ const Visualizer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
     <div className={[classes.visualizer, classes.vertical].join(" ")}>
       {getArray(algorithm.type).map((element, index) => {
         return (
-          <div
-            className={classes.bar}
-            key={index}
-            style={{
-              width: `${element.getValue()}%`,
-              backgroundColor: `${element.getColor()}`
-            }}
-          ></div>
+          <div key={index} className={classes.bar}>
+            <div
+              style={{
+                width: `${element.getValue()}%`,
+                backgroundColor: `${element.getColor()}`
+              }}
+            ></div>
+            <div
+              style={{
+                width: `${100 - element.getValue()}%`,
+                backgroundColor: `${customColors.grey}`
+              }}
+            ></div>
+          </div>
         );
       })}
     </div>

@@ -13,18 +13,25 @@ import {
   CardActionArea,
   CardContent
 } from "@material-ui/core";
+import { customColors } from "../app/styling/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: "30em",
       position: "relative",
-      right: "2.5em",
+      right: "5em",
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      borderBottomStyle: "solid",
+      borderWidth: "2px",
+      borderColor: customColors.primaryDark
     },
-    "action-area": {
-      flexBasis: "90%"
+    actionArea: {
+      flexBasis: "90%",
+      border: "dashed",
+      borderWidth: "3px",
+      borderColor: customColors.primaryLight
     },
     content: {
       height: "100%",
@@ -53,7 +60,7 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   return (
     <Card raised className={classes.root}>
       <CardActionArea
-        className={classes["action-area"]}
+        className={classes.actionArea}
         onClick={() => triggerSorting(algorithm.type)}
       >
         <CardContent className={classes.content}>

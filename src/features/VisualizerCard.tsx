@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "auto",
       width: "70%",
       overflow: "visible",
-      backgroundColor: customColors.grey
+      backgroundColor: customColors.greyLight,
+      borderBottomStyle: "solid",
+      borderWidth: "2px",
+      borderColor: customColors.primaryDark
     },
     "card-content": {
       display: "grid",

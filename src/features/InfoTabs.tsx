@@ -10,12 +10,16 @@ import {
   createStyles,
   Paper
 } from "@material-ui/core";
+import { customColors } from "../app/styling/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     tabs: {
       marginTop: "4em",
-      marginRight: "1.5em"
+      marginRight: "1.5em",
+      borderBottomStyle: "solid",
+      borderWidth: "2px",
+      borderColor: customColors.primaryDark
     },
     tabContent: {
       padding: "1em"
