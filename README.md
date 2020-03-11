@@ -1,4 +1,4 @@
-https://gipnozaba.github.io/todoapp/
+https://gipnozaba.github.io/sorting-visualizer/
 
 ### Auto generated
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
