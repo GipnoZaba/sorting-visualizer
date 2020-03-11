@@ -3,7 +3,8 @@ import { ISortable } from "./sortable";
 export enum Algorithms {
   BubbleSort = "bubbleSort",
   InsertionSort = "insertionSort",
-  SelectionSort = "selectionSort"
+  SelectionSort = "selectionSort",
+  QuickSort = "quickSort"
 }
 
 export interface IAnimation {

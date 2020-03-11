@@ -1,6 +1,12 @@
 import { ISortable, SortableNumber } from "../../models/sortable";
 import { randomNumber } from "./mathHelpers";
 
+function swap(array: any[], index1: number, index2: number) {
+  let tmp = array[index1];
+  array[index1] = array[index2];
+  array[index2] = tmp;
+}
+
 function shuffle<T>(array: T[]): T[] {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -33,4 +39,9 @@ const generateSteadySortableNumbers = (count: number): ISortable[] => {
   return shuffle(array);
 };
 
-export { shuffle, generateSortableNumbers, generateSteadySortableNumbers };
+export {
+  swap,
+  shuffle,
+  generateSortableNumbers,
+  generateSteadySortableNumbers
+};

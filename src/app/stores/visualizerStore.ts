@@ -16,6 +16,7 @@ import {
 } from "../common/utils/arrayHelpers";
 import { customColors } from "../styling/colors";
 import SelectionSort from "../../algorithms/selectionSort";
+import QuickSort from "../../algorithms/quickSort";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -27,7 +28,7 @@ export default class VisualizerStore implements IStore {
   }
 
   elementsCount = 100;
-  animationSpeed = 100;
+  animationSpeed = 10;
 
   algorithmsMap = new Map<Algorithms, ISortingAlgorithm>();
   @observable arraysMap = new Map<Algorithms, ISortable[]>();
@@ -38,6 +39,7 @@ export default class VisualizerStore implements IStore {
     this.algorithmsMap.set(Algorithms.BubbleSort, new BubbleSort());
     this.algorithmsMap.set(Algorithms.InsertionSort, new InsertionSort());
     this.algorithmsMap.set(Algorithms.SelectionSort, new SelectionSort());
+    this.algorithmsMap.set(Algorithms.QuickSort, new QuickSort());
 
     this.algorithmsMap.forEach(x =>
       this.arraysMap.set(
@@ -64,7 +66,6 @@ export default class VisualizerStore implements IStore {
         algorithm,
         sortingAlgorithm
           .sort(array)
-          .filter(x => x.type !== AnimationTypes.Comparison)
       );
 
       var interval = setInterval(() => {

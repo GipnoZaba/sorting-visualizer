@@ -8,6 +8,7 @@ import {
   AnimationTypes,
   IAnimation
 } from "../app/models/visualizerOptions";
+import { swap } from "../app/common/utils/arrayHelpers";
 
 const data: IAlgorithmData = {
   title: "Bubble Sort",
@@ -38,9 +39,8 @@ class BubbleSort implements ISortingAlgorithm {
         });
 
         if (array[j].isGreaterThan(array[j + 1])) {
-          let tmp = array[j];
-          array[j] = array[j + 1];
-          array[j + 1] = tmp;
+
+          swap(array, j, j + 1);
 
           animations.push({
             type: AnimationTypes.Swap,
