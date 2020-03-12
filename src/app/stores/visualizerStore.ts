@@ -17,6 +17,7 @@ import {
 import { customColors } from "../styling/colors";
 import SelectionSort from "../../algorithms/selectionSort";
 import QuickSort from "../../algorithms/quickSort";
+import MergeSort from "../../algorithms/mergeSort";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -40,6 +41,7 @@ export default class VisualizerStore implements IStore {
     this.algorithmsMap.set(Algorithms.InsertionSort, new InsertionSort());
     this.algorithmsMap.set(Algorithms.SelectionSort, new SelectionSort());
     this.algorithmsMap.set(Algorithms.QuickSort, new QuickSort());
+    this.algorithmsMap.set(Algorithms.MergeSort, new MergeSort());
 
     this.algorithmsMap.forEach(x =>
       this.arraysMap.set(
@@ -64,8 +66,7 @@ export default class VisualizerStore implements IStore {
       let array = this.getArray(algorithm);
       let animations = this.setAnimations(
         algorithm,
-        sortingAlgorithm
-          .sort(array)
+        sortingAlgorithm.sort(array)
       );
 
       var interval = setInterval(() => {

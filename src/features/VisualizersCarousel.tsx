@@ -44,7 +44,7 @@ const VisualizersCarousel = () => {
   const [currentCard, setCurrentCard] = useState(1);
 
   const nextSlide = () => {
-    if (currentCard >= 4) {
+    if (currentCard >= 5) {
       setCurrentCard(1);
     } else {
       setCurrentCard(currentCard + 1);
@@ -53,7 +53,7 @@ const VisualizersCarousel = () => {
 
   const prevSlide = () => {
     if (currentCard <= 1) {
-      setCurrentCard(4);
+      setCurrentCard(5);
     } else {
       setCurrentCard(currentCard - 1);
     }
@@ -85,6 +85,10 @@ const VisualizersCarousel = () => {
       <VisualizerCard
         algorithm={getAlgorithm(Algorithms.QuickSort)}
         visible={currentCard === 4}
+      />
+      <VisualizerCard
+        algorithm={getAlgorithm(Algorithms.MergeSort)}
+        visible={currentCard === 5}
       />
 
       <Button

@@ -4,7 +4,8 @@ export enum Algorithms {
   BubbleSort = "bubbleSort",
   InsertionSort = "insertionSort",
   SelectionSort = "selectionSort",
-  QuickSort = "quickSort"
+  QuickSort = "quickSort",
+  MergeSort = "mergeSort"
 }
 
 export interface IAnimation {
@@ -12,6 +13,7 @@ export interface IAnimation {
   index1: number;
   index2: number;
   element?: ISortable;
+  array?: ISortable[];
 }
 
 export enum AnimationTypes {
