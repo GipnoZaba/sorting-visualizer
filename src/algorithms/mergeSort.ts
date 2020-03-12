@@ -46,9 +46,10 @@ class MergeSort implements ISortingAlgorithm {
 
     return this.merge(
       this.mergeSort(left, animations, startIndex),
-      this.mergeSort(right, animations, left.length),
+      this.mergeSort(right, animations, startIndex + middle),
       animations,
-      startIndex
+      startIndex,
+      startIndex + middle
     );
   }
 
@@ -56,7 +57,8 @@ class MergeSort implements ISortingAlgorithm {
     left: ISortable[],
     right: ISortable[],
     animations: IAnimation[],
-    startIndex: number
+    startIndexLeft: number,
+    startIndexRight: number
   ): ISortable[] {
     let array: ISortable[] = [];
     let lCounter = 0;
@@ -65,8 +67,8 @@ class MergeSort implements ISortingAlgorithm {
     while (left.length && right.length) {
       animations.push({
         type: AnimationTypes.Comparison,
-        index1: startIndex + lCounter,
-        index2: startIndex + left.length + rCounter
+        index1: startIndexLeft + lCounter,
+        index2: startIndexRight + rCounter
       });
 
       if (left[0].isLessThan(right[0])) {
@@ -89,8 +91,8 @@ class MergeSort implements ISortingAlgorithm {
     for (let i = 0; i < array.length; i++) {
       animations.push({
         type: AnimationTypes.Set,
-        index1: startIndex + i,
-        index2: startIndex + i,
+        index1: startIndexLeft + i,
+        index2: startIndexLeft + i,
         element: array[i]
       });
     }
