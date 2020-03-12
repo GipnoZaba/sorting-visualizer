@@ -1,5 +1,5 @@
 import { ISortable, SortableNumber } from "../../models/sortable";
-import { randomNumber } from "./mathHelpers";
+import { randomNumber, remap } from "./mathHelpers";
 
 function swap(array: any[], index1: number, index2: number) {
   let tmp = array[index1];
@@ -39,9 +39,28 @@ const generateSteadySortableNumbers = (count: number): ISortable[] => {
   return shuffle(array);
 };
 
+const generateSteppedArray = (count: number): ISortable[] => {
+  let array: ISortable[] = [];
+
+  let interval = Math.floor(count / 5);
+  let stepped = remap([0, count], [0, 100], Math.floor(count / 5));
+  let h = 0;
+
+  for (let i = 0; i < count; i++) {
+    array.push(new SortableNumber(h));
+
+    if (i % interval === 0) {
+      h += stepped;
+    }
+  }
+
+  return shuffle(array);
+};
+
 export {
   swap,
   shuffle,
   generateSortableNumbers,
-  generateSteadySortableNumbers
+  generateSteadySortableNumbers,
+  generateSteppedArray
 };

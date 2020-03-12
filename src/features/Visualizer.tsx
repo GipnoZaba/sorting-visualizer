@@ -45,7 +45,7 @@ const Visualizer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           <div key={index} className={classes.bar}>
             <div
               style={{
-                width: `${element.getValue()}%`,
+                width: `${element.getValue() === 0 ? 1 : element.getValue()}%`,
                 backgroundColor: `${element.getColor()}`
               }}
             ></div>

@@ -8,7 +8,6 @@ import {
   AnimationTypes,
   IAnimation
 } from "../app/models/visualizerOptions";
-import { swap } from "../app/common/utils/arrayHelpers";
 
 const data: IAlgorithmData = {
   title: "Merge Sort",
@@ -25,9 +24,9 @@ class MergeSort implements ISortingAlgorithm {
   sort(array: ISortable[]) {
     array = array.slice();
     var animations: IAnimation[] = [];
-    console.log(array.slice());
-    console.log(this.mergeSort(array, animations, 0));
-    console.log(animations);
+
+    this.mergeSort(array, animations, 0)
+    
     return animations;
   }
 

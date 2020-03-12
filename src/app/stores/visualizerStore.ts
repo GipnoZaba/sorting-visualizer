@@ -12,7 +12,8 @@ import {
 } from "../models/visualizerOptions";
 import {
   generateSortableNumbers,
-  generateSteadySortableNumbers
+  generateSteadySortableNumbers,
+  generateSteppedArray
 } from "../common/utils/arrayHelpers";
 import { customColors } from "../styling/colors";
 import SelectionSort from "../../algorithms/selectionSort";
@@ -52,7 +53,7 @@ export default class VisualizerStore implements IStore {
   };
 
   @action triggerSorting = (algorithm: Algorithms) => {
-    this.triggerIsAnimating(algorithm);
+    this.triggerIsAnimating(algorithm, !this.isAnimating(algorithm));
 
     let animations = this.getAnimations(algorithm);
     let noAnimations = false;
@@ -66,7 +67,9 @@ export default class VisualizerStore implements IStore {
       let array = this.getArray(algorithm);
       let animations = this.setAnimations(
         algorithm,
-        sortingAlgorithm.sort(array)
+        sortingAlgorithm
+          .sort(array)
+          .filter(x => x.type !== AnimationTypes.Comparison)
       );
 
       var interval = setInterval(() => {
@@ -75,7 +78,7 @@ export default class VisualizerStore implements IStore {
           if (animation) {
             this.animate(animation, array);
           } else {
-            this.triggerIsAnimating(algorithm);
+            this.triggerIsAnimating(algorithm, false);
             clearInterval(interval);
           }
         }
@@ -104,13 +107,14 @@ export default class VisualizerStore implements IStore {
       case AnimationTypes.Set:
         if (animation.element) {
           array[animation.index2] = animation.element;
+          array[animation.index2].color = customColors.secondaryDark;
         }
         break;
     }
   }
 
   @action getRandomArray = (algorithm: Algorithms) => {
-    this.resetArray(algorithm);
+    this.resetAnimations(algorithm);
 
     this.setArray(
       algorithm,
@@ -119,13 +123,13 @@ export default class VisualizerStore implements IStore {
   };
 
   @action getSteadyArray = (algorithm: Algorithms) => {
-    this.resetArray(algorithm);
+    this.resetAnimations(algorithm);
 
     this.setArray(algorithm, generateSteadySortableNumbers(this.elementsCount));
   };
 
   @action getReversedArray = (algorithm: Algorithms) => {
-    this.resetArray(algorithm);
+    this.resetAnimations(algorithm);
 
     let array: ISortable[] = [];
     for (let i = 1; i <= this.elementsCount; i++) {
@@ -135,9 +139,17 @@ export default class VisualizerStore implements IStore {
     this.setArray(algorithm, array);
   };
 
-  @action resetArray(algorithm: Algorithms) {
+  @action getSteppedArray = (algorithm: Algorithms) => {
+    this.resetAnimations(algorithm);
+
+    this.setArray(algorithm, generateSteppedArray(this.elementsCount));
+  };
+
+  @action resetAnimations(algorithm: Algorithms) {
     this.setAnimations(algorithm, []);
-    if (this.isAnimating(algorithm)) this.triggerIsAnimating(algorithm);
+    if (this.isAnimating(algorithm)) {
+      this.triggerIsAnimating(algorithm, false);
+    }
   }
 
   getAlgorithm = (algorithm: Algorithms): ISortingAlgorithm => {
@@ -168,7 +180,7 @@ export default class VisualizerStore implements IStore {
     return this.animatingMap.get(algorithm) ?? false;
   };
 
-  @action triggerIsAnimating = (algorithm: Algorithms) => {
-    this.animatingMap.set(algorithm, !this.isAnimating(algorithm));
+  @action triggerIsAnimating = (algorithm: Algorithms, value: boolean) => {
+    this.animatingMap.set(algorithm, value);
   };
 }

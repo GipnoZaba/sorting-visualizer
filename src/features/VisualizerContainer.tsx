@@ -77,6 +77,7 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
     getRandomArray,
     getSteadyArray,
     getReversedArray,
+    getSteppedArray,
     triggerSorting,
     isAnimating
   } = rootStore.visualizerStore;
@@ -88,7 +89,7 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         className={classes.actionArea}
         onClick={() => triggerSorting(algorithm.type)}
       >
-        {isAnimating(algorithm.type) ? ( 
+        {isAnimating(algorithm.type) ? (
           <PauseCircleOutlineIcon id="pauseIcon" className={classes.icon} />
         ) : (
           <PlayCircleOutlineIcon id="playIcon" className={classes.icon} />
@@ -110,7 +111,7 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         <Button onClick={() => getRandomArray(algorithm.type)}>Rand</Button>
         <Button onClick={() => getSteadyArray(algorithm.type)}>Uni</Button>
         <Button onClick={() => getReversedArray(algorithm.type)}>Rev</Button>
-        <Button>Four</Button>
+        <Button onClick={() => getSteppedArray(algorithm.type)}>Four</Button>
       </ButtonGroup>
     </Card>
   );
