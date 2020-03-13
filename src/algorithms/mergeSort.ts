@@ -8,13 +8,14 @@ import {
   AnimationTypes,
   IAnimation
 } from "../app/models/visualizerOptions";
+import { linear, logarithmicLinear } from "../app/common/utils/mathHelpers";
 
 const data: IAlgorithmData = {
   title: "Merge Sort",
   class: "Comparison sort",
   description: "",
-  timeComplexity: "n^2",
-  spaceComplexity: "1"
+  timeComplexity: logarithmicLinear,
+  spaceComplexity: linear
 };
 
 class MergeSort implements ISortingAlgorithm {
@@ -25,8 +26,16 @@ class MergeSort implements ISortingAlgorithm {
     array = array.slice();
     var animations: IAnimation[] = [];
 
-    this.mergeSort(array, animations, 0)
-    
+    this.mergeSort(array, animations, 0);
+
+    array.forEach((x, i) =>
+      animations.push({
+        type: AnimationTypes.Finish,
+        index1: i,
+        index2: i
+      })
+    );
+
     return animations;
   }
 

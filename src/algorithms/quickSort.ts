@@ -9,13 +9,14 @@ import {
   IAnimation
 } from "../app/models/visualizerOptions";
 import { swap } from "../app/common/utils/arrayHelpers";
+import { logarithmicLinear, logarithmic } from "../app/common/utils/mathHelpers";
 
 const data: IAlgorithmData = {
   title: "Quick Sort",
   class: "Comparison sort",
   description: "",
-  timeComplexity: "n^2",
-  spaceComplexity: "1"
+  timeComplexity: logarithmicLinear,
+  spaceComplexity: logarithmic
 };
 
 class QuickSort implements ISortingAlgorithm {
@@ -26,7 +27,17 @@ class QuickSort implements ISortingAlgorithm {
     array = array.slice();
     var animations: IAnimation[] = [];
 
-    return this.quickSort(array, 0, array.length - 1, animations);
+    this.quickSort(array, 0, array.length - 1, animations);
+
+    array.forEach((x, i) =>
+      animations.push({
+        type: AnimationTypes.Finish,
+        index1: i,
+        index2: i
+      })
+    );
+
+    return animations;
   }
 
   quickSort(

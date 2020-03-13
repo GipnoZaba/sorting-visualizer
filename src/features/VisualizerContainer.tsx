@@ -46,6 +46,14 @@ const marks = [
   {
     value: 100,
     label: "100"
+  },
+  {
+    value: 150,
+    label: "150"
+  },
+  {
+    value: 200,
+    label: "200"
   }
 ];
 
@@ -144,15 +152,12 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
     triggerSorting,
     isAnimating,
     handleBarsAmountChange,
-    changeSpeed
+    changeSpeed,
+    speed
   } = rootStore.visualizerStore;
-
-  const [currentSpeed, setCurrentSpeed] = useState("average");
 
   const handleChangeSpeed = (speed: string) => {
     changeSpeed(speed);
-
-    setCurrentSpeed(speed);
   };
 
   return (
@@ -162,9 +167,9 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         <Slider
           style={{ color: `${customColors.secondary}` }}
           min={5}
-          max={100}
+          max={200}
           orientation="vertical"
-          defaultValue={20}
+          defaultValue={25}
           aria-labelledby="discrete-slider-custom"
           step={1}
           valueLabelDisplay="on"
@@ -185,7 +190,7 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         >
           <IconButton
             style={{
-              backgroundColor: currentSpeed === "slow" ? green[100] : "white"
+              backgroundColor: speed === "slow" ? green[100] : "white"
             }}
             aria-label="slow"
             onClick={() => handleChangeSpeed("slow")}
@@ -200,8 +205,7 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           </IconButton>
           <IconButton
             style={{
-              backgroundColor:
-                currentSpeed === "average" ? orange[100] : "white"
+              backgroundColor: speed === "average" ? orange[100] : "white"
             }}
             aria-label="average"
             onClick={() => handleChangeSpeed("average")}
@@ -216,7 +220,7 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           </IconButton>
           <IconButton
             style={{
-              backgroundColor: currentSpeed === "fast" ? red[100] : "white"
+              backgroundColor: speed === "fast" ? red[100] : "white"
             }}
             aria-label="fast"
             onClick={() => handleChangeSpeed("fast")}

@@ -8,13 +8,14 @@ import {
   IAnimation,
   AnimationTypes
 } from "../app/models/visualizerOptions";
+import { squared, constant } from "../app/common/utils/mathHelpers";
 
 const data: IAlgorithmData = {
   title: "Insertion sort",
   class: "Comparison sort",
   description: "",
-  timeComplexity: "n^2",
-  spaceComplexity: "1"
+  timeComplexity: squared,
+  spaceComplexity: constant
 };
 
 class InsertionSort implements ISortingAlgorithm {
@@ -56,6 +57,14 @@ class InsertionSort implements ISortingAlgorithm {
         element: key
       });
     }
+
+    array.forEach((x, i) =>
+      animations.push({
+        type: AnimationTypes.Finish,
+        index1: i,
+        index2: i
+      })
+    );
 
     return animations;
   }

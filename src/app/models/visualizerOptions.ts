@@ -20,5 +20,6 @@ export enum AnimationTypes {
   Swap,
   Comparison,
   Move,
-  Set
+  Set,
+  Finish
 }

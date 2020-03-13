@@ -12,16 +12,21 @@ import {
   Tooltip,
   Divider
 } from "@material-ui/core";
+import TimerIcon from "@material-ui/icons/Timer";
+import SdStorageIcon from "@material-ui/icons/SdStorage";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     tags: {
-      marginTop: "1em",
       display: "flex",
       flexWrap: "wrap",
+      marginBottom: "1em",
       "& > *": {
         margin: theme.spacing(0.5)
       }
+    },
+    chip: {
+      fontSize: "1em"
     }
   })
 );
@@ -34,20 +39,37 @@ const VisualizerInfo: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   return (
     <Box>
       <Typography variant="h2">{algorithm.data.title}</Typography>
-      <Divider variant="fullWidth" />
       <div className={classes.tags}>
-        <Tooltip title="Link?" interactive>
+        <Tooltip title="Average time complexity" interactive>
           <Chip
-            label={"Θ(" + algorithm.data.timeComplexity + ")"}
+            className={classes.chip}
             color="primary"
+            icon={<TimerIcon />}
+            label={
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: algorithm.data.timeComplexity
+                }}
+              ></p>
+            }
+          ></Chip>
+        </Tooltip>
+        <Tooltip title="Space complexity" interactive>
+          <Chip
+            className={classes.chip}
+            color="primary"
+            icon={<SdStorageIcon />}
+            label={
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: algorithm.data.spaceComplexity
+                }}
+              ></p>
+            }
           />
         </Tooltip>
-
-        <Chip
-          label={"O(" + algorithm.data.spaceComplexity + ")"}
-          color="primary"
-        />
       </div>
+      <Divider variant="fullWidth" />
       <InfoTabs algorithm={algorithm} />
     </Box>
   );

@@ -20,6 +20,7 @@ import SelectionSort from "../../algorithms/selectionSort";
 import QuickSort from "../../algorithms/quickSort";
 import MergeSort from "../../algorithms/mergeSort";
 import { remap } from "../common/utils/mathHelpers";
+import { green } from "@material-ui/core/colors";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -32,7 +33,7 @@ export default class VisualizerStore implements IStore {
 
   elementsCount = 50;
   animationSpeed = 10;
-  intervalChanged = false;
+  @observable speed = "average";
 
   algorithmsMap = new Map<Algorithms, ISortingAlgorithm>();
   @observable arraysMap = new Map<Algorithms, ISortable[]>();
@@ -71,7 +72,6 @@ export default class VisualizerStore implements IStore {
         algorithm,
         sortingAlgorithm
           .sort(array)
-          .filter(x => x.type !== AnimationTypes.Comparison)
       );
 
       var interval = setInterval(() => {
@@ -89,7 +89,7 @@ export default class VisualizerStore implements IStore {
   };
 
   @action handleBarsAmountChange = (value: number, algorithm: Algorithms) => {
-    if (value < 5 || value > 100 || value === this.elementsCount) {
+    if (value < 5 || value > 200 || value === this.elementsCount) {
       return;
     }
 
@@ -103,6 +103,7 @@ export default class VisualizerStore implements IStore {
   };
 
   @action changeSpeed = (speed: string) => {
+    this.speed = speed;
     switch (speed) {
       case "slow":
         this.animationSpeed = 500;
@@ -140,6 +141,11 @@ export default class VisualizerStore implements IStore {
           array[animation.index2].color = customColors.secondaryDark;
         }
         break;
+      case AnimationTypes.Finish:
+        for (let i = 0; i <= animation.index1; i++) {
+          array[i].color = green[500];
+        }
+        break;
     }
   }
 
@@ -148,7 +154,7 @@ export default class VisualizerStore implements IStore {
 
     this.setArray(
       algorithm,
-      generateSortableNumbers(0, 100, this.elementsCount)
+      generateSortableNumbers(0, 25, this.elementsCount)
     );
   };
 

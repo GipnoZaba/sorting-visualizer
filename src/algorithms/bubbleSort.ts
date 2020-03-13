@@ -9,6 +9,7 @@ import {
   IAnimation
 } from "../app/models/visualizerOptions";
 import { swap } from "../app/common/utils/arrayHelpers";
+import { squared, constant } from "../app/common/utils/mathHelpers";
 
 const data: IAlgorithmData = {
   title: "Bubble Sort",
@@ -18,8 +19,8 @@ const data: IAlgorithmData = {
                 through the list, compares adjacent elements and swaps
                 them if they are in the wrong order. The pass through
                 the list is repeated until the list is sorted.`,
-  timeComplexity: "n^2",
-  spaceComplexity: "1"
+  timeComplexity: squared,
+  spaceComplexity: constant
 };
 
 class BubbleSort implements ISortingAlgorithm {
@@ -39,7 +40,6 @@ class BubbleSort implements ISortingAlgorithm {
         });
 
         if (array[j].isGreaterThan(array[j + 1])) {
-
           swap(array, j, j + 1);
 
           animations.push({
@@ -50,6 +50,14 @@ class BubbleSort implements ISortingAlgorithm {
         }
       }
     }
+
+    array.forEach((x, i) =>
+      animations.push({
+        type: AnimationTypes.Finish,
+        index1: i,
+        index2: i
+      })
+    );
 
     return animations;
   }
