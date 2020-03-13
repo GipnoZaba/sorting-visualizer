@@ -19,6 +19,7 @@ import { customColors } from "../styling/colors";
 import SelectionSort from "../../algorithms/selectionSort";
 import QuickSort from "../../algorithms/quickSort";
 import MergeSort from "../../algorithms/mergeSort";
+import { remap } from "../common/utils/mathHelpers";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -29,7 +30,7 @@ export default class VisualizerStore implements IStore {
     this.initAlgorithms();
   }
 
-  elementsCount = 100;
+  elementsCount = 50;
   animationSpeed = 10;
 
   algorithmsMap = new Map<Algorithms, ISortingAlgorithm>();
@@ -86,6 +87,20 @@ export default class VisualizerStore implements IStore {
     }
   };
 
+  @action handleBarsAmountChange = (value: number, algorithm: Algorithms) => {
+    if (value < 5 || value > 100 || value === this.elementsCount) {
+      return;
+    }
+
+    this.elementsCount = value;
+    this.resetAnimations(algorithm);
+
+    this.arraysMap.set(
+      algorithm,
+      generateSortableNumbers(1, 100, this.elementsCount)
+    );
+  };
+
   @action animate(animation: IAnimation, array: ISortable[]) {
     array.forEach(x => (x.color = customColors.primary));
     switch (animation.type) {
@@ -133,7 +148,9 @@ export default class VisualizerStore implements IStore {
 
     let array: ISortable[] = [];
     for (let i = 1; i <= this.elementsCount; i++) {
-      array.unshift(new SortableNumber(i));
+      array.unshift(
+        new SortableNumber(remap([0, this.elementsCount], [0, 100], i))
+      );
     }
 
     this.setArray(algorithm, array);

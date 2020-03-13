@@ -7,12 +7,37 @@ import {
   Button,
   makeStyles,
   Theme,
-  createStyles
+  createStyles,
+  Typography,
+  Paper
 } from "@material-ui/core"; //maaaaaaaau
 import { customColors } from "../app/styling/colors";
 import { Algorithms } from "../app/models/visualizerOptions";
 //tut potsemu to net kotika a vernee pusisti
 //if sirlja kotik import kotik to Tartu from TALLINN
+
+const neigbours = [
+  {
+    prev: "last",
+    next: "Insertion"
+  },
+  {
+    prev: "Bubble",
+    next: "Selection"
+  },
+  {
+    prev: "Insertion",
+    next: "Quick"
+  },
+  {
+    prev: "Selection",
+    next: "Merge"
+  },
+  {
+    prev: "Quick",
+    next: "Insertion"
+  }
+];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -23,7 +23,7 @@ const generateSortableNumbers = (
   let array: ISortable[] = [];
 
   for (let i = 0; i < count; i++) {
-    array.push(new SortableNumber(randomNumber(from, to)));
+    array.push(new SortableNumber(randomNumber(0, 100)));
   }
 
   return array;
@@ -33,7 +33,7 @@ const generateSteadySortableNumbers = (count: number): ISortable[] => {
   let array: ISortable[] = [];
 
   for (let i = 1; i <= count; i++) {
-    array.push(new SortableNumber(i));
+    array.push(new SortableNumber(remap([0, count], [0, 100], i)));
   }
 
   return shuffle(array);
@@ -42,15 +42,19 @@ const generateSteadySortableNumbers = (count: number): ISortable[] => {
 const generateSteppedArray = (count: number): ISortable[] => {
   let array: ISortable[] = [];
 
-  let interval = Math.floor(count / 5);
-  let stepped = remap([0, count], [0, 100], Math.floor(count / 5));
-  let h = 0;
+  let h = 10;
+  let step = Math.floor((count - 1) / 4);
+  let counter = 0;
 
   for (let i = 0; i < count; i++) {
     array.push(new SortableNumber(h));
 
-    if (i % interval === 0) {
-      h += stepped;
+    if (++counter === step) {
+      counter = 0;
+      h += 22;
+      if (h > 76) {
+        h = 100;
+      }
     }
   }
 

@@ -39,7 +39,14 @@ const Visualizer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const { getArray } = rootStore.visualizerStore;
 
   return (
-    <div className={[classes.visualizer, classes.vertical].join(" ")}>
+    <div
+      className={[classes.visualizer, classes.vertical].join(" ")}
+      style={{
+        gridTemplateRows: `repeat(${
+          getArray(algorithm.type).length
+        }, minmax(1px, 1fr))`
+      }}
+    >
       {getArray(algorithm.type).map((element, index) => {
         return (
           <div key={index} className={classes.bar}>
