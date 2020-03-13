@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ISortingAlgorithm } from "../app/models/sortingAlgorithm";
 import Visualizer from "./Visualizer";
 import { RootStoreContext } from "../app/stores/rootStore";
@@ -9,15 +9,22 @@ import {
   createStyles,
   Card,
   ButtonGroup,
-  Button,
   CardActionArea,
   CardContent,
   Slider,
-  Paper
+  Paper,
+  IconButton,
+  Badge,
+  styled
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
+import SignalCellular4BarIcon from "@material-ui/icons/SignalCellular4Bar";
+import SignalCellularAltIcon from "@material-ui/icons/SignalCellularAlt";
+import ShuffleIcon from "@material-ui/icons/Shuffle";
+import SpeedIcon from "@material-ui/icons/Speed";
+import { green, orange, red, grey } from "@material-ui/core/colors";
 
 const marks = [
   {
@@ -55,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
     sliderContainer: {
       display: "flex",
       flexDirection: "column",
-      height: "15em",
+      height: "90%",
       alignItems: "center",
       width: "5em",
       borderBottomStyle: "solid",
@@ -107,6 +114,18 @@ const useStyles = makeStyles((theme: Theme) =>
       "&:hover": {
         transform: "scale(1.02)"
       }
+    },
+    slow: {
+      backgroundColor: green[600],
+      color: "white"
+    },
+    average: {
+      backgroundColor: orange[600],
+      color: "white"
+    },
+    fast: {
+      backgroundColor: red[600],
+      color: "white"
     }
   })
 );
@@ -124,8 +143,17 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
     getSteppedArray,
     triggerSorting,
     isAnimating,
-    handleBarsAmountChange
+    handleBarsAmountChange,
+    changeSpeed
   } = rootStore.visualizerStore;
+
+  const [currentSpeed, setCurrentSpeed] = useState("average");
+
+  const handleChangeSpeed = (speed: string) => {
+    changeSpeed(speed);
+
+    setCurrentSpeed(speed);
+  };
 
   return (
     <div className={classes.root}>
@@ -146,6 +174,62 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           }
         />
         <div style={{ marginBottom: "1em" }} />
+        <ButtonGroup
+          orientation="vertical"
+          className={classes.buttons}
+          size="large"
+          variant="text"
+          color="secondary"
+          aria-label="contained primary button group"
+          fullWidth
+        >
+          <IconButton
+            style={{
+              backgroundColor: currentSpeed === "slow" ? green[100] : "white"
+            }}
+            aria-label="slow"
+            onClick={() => handleChangeSpeed("slow")}
+          >
+            <Badge
+              classes={{ badge: classes.slow }}
+              variant="dot"
+              style={{ color: `${green[600]}` }}
+            >
+              <SpeedIcon style={{ color: `${green[600]}` }} />
+            </Badge>
+          </IconButton>
+          <IconButton
+            style={{
+              backgroundColor:
+                currentSpeed === "average" ? orange[100] : "white"
+            }}
+            aria-label="average"
+            onClick={() => handleChangeSpeed("average")}
+          >
+            <Badge
+              classes={{ badge: classes.average }}
+              variant="dot"
+              style={{ color: `${orange[600]}` }}
+            >
+              <SpeedIcon style={{ color: `${orange[600]}` }} />
+            </Badge>
+          </IconButton>
+          <IconButton
+            style={{
+              backgroundColor: currentSpeed === "fast" ? red[100] : "white"
+            }}
+            aria-label="fast"
+            onClick={() => handleChangeSpeed("fast")}
+          >
+            <Badge
+              classes={{ badge: classes.fast }}
+              variant="dot"
+              style={{ color: `${red[600]}` }}
+            >
+              <SpeedIcon style={{ color: `${red[600]}` }} />
+            </Badge>
+          </IconButton>
+        </ButtonGroup>
       </Paper>
 
       <Card raised className={classes.card}>
@@ -173,10 +257,18 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           aria-label="contained primary button group"
           fullWidth
         >
-          <Button onClick={() => getRandomArray(algorithm.type)}>Rand</Button>
-          <Button onClick={() => getSteadyArray(algorithm.type)}>Uni</Button>
-          <Button onClick={() => getReversedArray(algorithm.type)}>Rev</Button>
-          <Button onClick={() => getSteppedArray(algorithm.type)}>Four</Button>
+          <IconButton onClick={() => getRandomArray(algorithm.type)}>
+            <ShuffleIcon />
+          </IconButton>
+          <IconButton onClick={() => getSteadyArray(algorithm.type)}>
+            <SignalCellular4BarIcon />
+          </IconButton>
+          <IconButton onClick={() => getReversedArray(algorithm.type)}>
+            <SignalCellular4BarIcon style={{ transform: "scaleX(-1)" }} />
+          </IconButton>
+          <IconButton onClick={() => getSteppedArray(algorithm.type)}>
+            <SignalCellularAltIcon />
+          </IconButton>
         </ButtonGroup>
       </Card>
     </div>

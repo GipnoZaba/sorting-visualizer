@@ -32,6 +32,7 @@ export default class VisualizerStore implements IStore {
 
   elementsCount = 50;
   animationSpeed = 10;
+  intervalChanged = false;
 
   algorithmsMap = new Map<Algorithms, ISortingAlgorithm>();
   @observable arraysMap = new Map<Algorithms, ISortable[]>();
@@ -99,6 +100,20 @@ export default class VisualizerStore implements IStore {
       algorithm,
       generateSortableNumbers(1, 100, this.elementsCount)
     );
+  };
+
+  @action changeSpeed = (speed: string) => {
+    switch (speed) {
+      case "slow":
+        this.animationSpeed = 500;
+        break;
+      case "average":
+        this.animationSpeed = 100;
+        break;
+      case "fast":
+        this.animationSpeed = 1;
+        break;
+    }
   };
 
   @action animate(animation: IAnimation, array: ISortable[]) {
