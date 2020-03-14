@@ -21,15 +21,16 @@ const useStyles = makeStyles((theme: Theme) =>
     tabs: {
       marginTop: "1em",
       marginRight: "1.5em",
+      height: "21em",
       borderBottomStyle: "solid",
       borderWidth: "2px",
       borderColor: customColors.primaryDark
     },
-    header: {
-      marginBottom: "1em"
-    },
     tabContent: {
-      padding: "1em"
+      height: "80%",
+      padding: "1em",
+      overflowY: "scroll",
+      overflowX: "hidden"
     }
   })
 );
@@ -75,32 +76,37 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         className={classes.tabContent}
         style={{ display: currentTab === 1 ? "block" : "none" }}
       >
-        <Typography variant="h5" className={classes.header}>
+        <Typography variant="h5" gutterBottom>
           Description
         </Typography>
-        <Typography variant="body2">{algorithm.data.description}</Typography>
+        <Typography variant="body2">
+          <p
+            dangerouslySetInnerHTML={{
+              __html: algorithm.data.description
+            }}
+          ></p>
+        </Typography>
       </Container>
       <Container
         className={classes.tabContent}
         style={{ display: currentTab === 2 ? "block" : "none" }}
       >
-        <Typography variant="h5" className={classes.header}>
+        <Typography variant="h5" gutterBottom>
           Implementaions
         </Typography>
-        <Typography variant="body2">
-          Implementations Implementations Implementations Implementations
-          Implementations
+        <Typography variant="body2" color="primary">
+          ---Coming Soon---
         </Typography>
       </Container>
       <Container
         className={classes.tabContent}
         style={{ display: currentTab === 3 ? "block" : "none" }}
       >
-        <Typography variant="h5" className={classes.header}>
+        <Typography variant="h5" gutterBottom>
           Use Cases
         </Typography>
-        <Typography variant="body2">
-          Use CasesUse CasesUse CasesUse CasesUse Cases
+        <Typography variant="body2" color="primary">
+        ---Coming Soon---
         </Typography>
       </Container>
       <Container

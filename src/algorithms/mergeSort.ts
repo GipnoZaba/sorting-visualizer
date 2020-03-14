@@ -13,7 +13,28 @@ import { linear, logarithmicLinear } from "../app/common/utils/mathHelpers";
 const data: IAlgorithmData = {
   title: "Merge Sort",
   class: "Comparison sort",
-  description: "",
+  description: `<p>In merge sort we follow the following steps:
+                  <ol>
+                    <li>
+                    We take a variable p and store the starting index 
+                    of our array in this. And we take another variable 
+                    r and store the last index of array in it.
+                    </li>
+                    <li>
+                    Then we find the middle of the array using the formula 
+                    (p + r)/2 and mark the middle index as q, and break the 
+                    array into two subarrays, from p to q and from q + 1 to 
+                    r index.
+                    </li>
+                    <li>
+                    Then we divide these 2 subarrays again, just like we divided 
+                    our main array and this continues.
+                    </li>
+                    <li>
+                    Once we have divided the main array into subarrays with single 
+                    elements, then we start merging the subarrays.
+                  </ol>
+                </p>`,
   timeComplexity: logarithmicLinear,
   spaceComplexity: linear
 };

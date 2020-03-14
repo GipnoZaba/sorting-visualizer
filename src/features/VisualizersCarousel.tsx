@@ -9,7 +9,8 @@ import {
   Theme,
   createStyles,
   Typography,
-  Paper
+  Paper,
+  Box
 } from "@material-ui/core"; //maaaaaaaau
 import { customColors } from "../app/styling/colors";
 import { Algorithms } from "../app/models/visualizerOptions";
@@ -44,16 +45,25 @@ const useStyles = makeStyles((theme: Theme) =>
     carousel: {
       height: "100%",
       width: "100%",
+      display: "flex"
+    },
+    buttonContainer: {
+      flexBasis: "15%",
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between"
+      justifyContent: "center"
+    },
+    cardContainer: {
+      flexBasis: "70%",
+      display: "flex",
+      alignItems: "center"
     },
     button: {
-      height: "6em",
-      width: "4em",
+      height: "10%",
+      width: "50%",
       backgroundColor: "transparent",
       border: "solid",
-      borderWidth: "0.2em",
+      borderWidth: "100%",
       borderColor: customColors.complementary
     }
   })
@@ -85,46 +95,52 @@ const VisualizersCarousel = () => {
   };
 
   return (
-    <Container className={classes.carousel}>
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        onClick={() => prevSlide()}
-      >
-        Back
-      </Button>
+    <Box className={classes.carousel}>
+      <Box className={classes.buttonContainer}>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => prevSlide()}
+        >
+          Back
+        </Button>
+      </Box>
 
-      <VisualizerCard
-        algorithm={getAlgorithm(Algorithms.BubbleSort)}
-        visible={currentCard === 1}
-      />
-      <VisualizerCard
-        algorithm={getAlgorithm(Algorithms.InsertionSort)}
-        visible={currentCard === 2}
-      />
-      <VisualizerCard
-        algorithm={getAlgorithm(Algorithms.SelectionSort)}
-        visible={currentCard === 3}
-      />
-      <VisualizerCard
-        algorithm={getAlgorithm(Algorithms.QuickSort)}
-        visible={currentCard === 4}
-      />
-      <VisualizerCard
-        algorithm={getAlgorithm(Algorithms.MergeSort)}
-        visible={currentCard === 5}
-      />
+      <Box className={classes.cardContainer}>
+        <VisualizerCard
+          algorithm={getAlgorithm(Algorithms.BubbleSort)}
+          visible={currentCard === 1}
+        />
+        <VisualizerCard
+          algorithm={getAlgorithm(Algorithms.InsertionSort)}
+          visible={currentCard === 2}
+        />
+        <VisualizerCard
+          algorithm={getAlgorithm(Algorithms.SelectionSort)}
+          visible={currentCard === 3}
+        />
+        <VisualizerCard
+          algorithm={getAlgorithm(Algorithms.QuickSort)}
+          visible={currentCard === 4}
+        />
+        <VisualizerCard
+          algorithm={getAlgorithm(Algorithms.MergeSort)}
+          visible={currentCard === 5}
+        />
+      </Box>
 
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        onClick={() => nextSlide()}
-      >
-        Next
-      </Button>
-    </Container>
+      <Box className={classes.buttonContainer}>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => nextSlide()}
+        >
+          Next
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

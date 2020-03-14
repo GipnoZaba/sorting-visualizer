@@ -15,8 +15,7 @@ import { customColors } from "../app/styling/colors";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
-      margin: "auto",
-      width: "70%",
+      height: "80%",
       overflow: "visible",
       backgroundColor: customColors.greyLight,
       borderBottomStyle: "solid",

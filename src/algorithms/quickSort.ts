@@ -9,12 +9,40 @@ import {
   IAnimation
 } from "../app/models/visualizerOptions";
 import { swap } from "../app/common/utils/arrayHelpers";
-import { logarithmicLinear, logarithmic } from "../app/common/utils/mathHelpers";
+import {
+  logarithmicLinear,
+  logarithmic
+} from "../app/common/utils/mathHelpers";
 
 const data: IAlgorithmData = {
   title: "Quick Sort",
   class: "Comparison sort",
-  description: "",
+  description: `<p>Following are the steps involved in quick sort algorithm:
+                  <ol>
+                    <li>
+                    After selecting an element as pivot, which is the last index
+                    of the array in our case, we divide the array for the first time.
+                    </li>
+                    <li>
+                    In quick sort, we call this partitioning. It is not simple breaking 
+                    down of array into 2 subarrays, but in case of partitioning, the 
+                    array elements are so positioned that all the elements smaller than 
+                    the pivot will be on the left side of the pivot and all the elements 
+                    greater than the pivot will be on the right side of it.
+                    </li>
+                    <li>
+                    And the pivot element will be at its final sorted position.
+                    </li>
+                    <li>
+                    The elements to the left and right, may not be sorted.
+                    </li>
+                    <li>
+                    Then we pick subarrays, elements on the left of pivot and elements on 
+                    the right of pivot, and we perform partitioning on them by choosing a 
+                    pivot in the subarrays.
+                    </li>
+                  </ol>
+                </p>`,
   timeComplexity: logarithmicLinear,
   spaceComplexity: logarithmic
 };
