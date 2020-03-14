@@ -10,13 +10,18 @@ import {
   Typography,
   Chip,
   Tooltip,
-  Divider
+  Divider,
+  Container
 } from "@material-ui/core";
 import TimerIcon from "@material-ui/icons/Timer";
 import SdStorageIcon from "@material-ui/icons/SdStorage";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      display: "flex",
+      flexDirection: "column"
+    },
     tags: {
       display: "flex",
       flexWrap: "wrap",
@@ -37,7 +42,7 @@ const VisualizerInfo: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const classes = useStyles();
 
   return (
-    <Box>
+    <Container className={classes.root}>
       <Typography variant="h2">{algorithm.data.title}</Typography>
       <div className={classes.tags}>
         <Tooltip title="Average time complexity" interactive>
@@ -70,8 +75,9 @@ const VisualizerInfo: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         </Tooltip>
       </div>
       <Divider variant="fullWidth" />
+      
       <InfoTabs algorithm={algorithm} />
-    </Box>
+    </Container>
   );
 };
 

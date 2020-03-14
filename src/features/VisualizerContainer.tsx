@@ -32,7 +32,6 @@ import VisualizerSidebar from "./VisualizerSidebar";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      overflow: "visible",
       height: "100%",
       position: "relative",
       right: "2.5em",
@@ -40,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "row"
     },
     card: {
-      overflow: "visible",
       height: "100%",
       width: "100%",
       display: "flex",
