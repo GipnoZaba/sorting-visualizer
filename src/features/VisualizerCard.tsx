@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       height: "80%",
       width: "100%",
+      padding: "1em 1em 1.5em 1em",
       overflow: "visible",
       backgroundColor: customColors.greyLight,
       borderBottomStyle: "solid",
@@ -39,8 +40,7 @@ const VisualizerCard: React.FC<{
       className={classes.card}
       style={{ display: visible ? "block" : "none" }}
     >
-      <CardContent>
-        <Grid container>
+        <Grid container style={{ height: "100%" }}>
           <Grid item xs={4}>
             <VisualizerContainer algorithm={algorithm} />
           </Grid>
@@ -48,7 +48,6 @@ const VisualizerCard: React.FC<{
             <VisualizerInfo algorithm={algorithm} />
           </Grid>
         </Grid>
-      </CardContent>
     </Card>
   );
 };

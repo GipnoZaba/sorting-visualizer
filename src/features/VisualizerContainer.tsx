@@ -16,7 +16,8 @@ import {
   IconButton,
   Badge,
   styled,
-  Button
+  Button,
+  Grid
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
@@ -26,6 +27,7 @@ import SignalCellularAltIcon from "@material-ui/icons/SignalCellularAlt";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import SpeedIcon from "@material-ui/icons/Speed";
 import { green, orange, red, grey } from "@material-ui/core/colors";
+import VisualizerSidebar from "./VisualizerSidebar";
 
 const marks = [
   {
@@ -62,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       overflow: "visible",
-      height: "30em",
+      height: "100%",
       position: "relative",
       right: "2.5em",
       display: "flex",
@@ -164,120 +166,120 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.sliderContainer} elevation={20}>
-        <div style={{ marginTop: "1em" }} />
-        <Slider
-          style={{ color: `${customColors.secondary}` }}
-          min={5}
-          max={200}
-          orientation="vertical"
-          defaultValue={25}
-          aria-labelledby="discrete-slider-custom"
-          step={1}
-          valueLabelDisplay="on"
-          marks={marks}
-          onChange={(event, value) =>
-            handleBarsAmountChange(Number(value), algorithm.type)
-          }
-        />
-        <div style={{ marginBottom: "1em" }} />
-        <ButtonGroup
-          orientation="vertical"
-          className={classes.buttons}
-          size="large"
-          variant="text"
-          color="secondary"
-          aria-label="contained primary button group"
-          fullWidth
+    <Paper className={classes.sliderContainer} elevation={20}>
+      <div style={{ marginTop: "1em" }} />
+      <Slider
+        style={{ color: `${customColors.secondary}` }}
+        min={5}
+        max={200}
+        orientation="vertical"
+        defaultValue={25}
+        aria-labelledby="discrete-slider-custom"
+        step={1}
+        valueLabelDisplay="on"
+        marks={marks}
+        onChange={(event, value) =>
+          handleBarsAmountChange(Number(value), algorithm.type)
+        }
+      />
+      <div style={{ marginBottom: "1em" }} />
+      <ButtonGroup
+        orientation="vertical"
+        className={classes.buttons}
+        size="large"
+        variant="text"
+        color="secondary"
+        aria-label="contained primary button group"
+        fullWidth
+      >
+        <IconButton
+          style={{
+            backgroundColor: speed === "slow" ? green[100] : "white"
+          }}
+          aria-label="slow"
+          onClick={() => handleChangeSpeed("slow")}
         >
-          <IconButton
-            style={{
-              backgroundColor: speed === "slow" ? green[100] : "white"
-            }}
-            aria-label="slow"
-            onClick={() => handleChangeSpeed("slow")}
+          <Badge
+            classes={{ badge: classes.slow }}
+            variant="dot"
+            style={{ color: `${green[600]}` }}
           >
-            <Badge
-              classes={{ badge: classes.slow }}
-              variant="dot"
-              style={{ color: `${green[600]}` }}
-            >
-              <SpeedIcon style={{ color: `${green[600]}` }} />
-            </Badge>
-          </IconButton>
-          <IconButton
-            style={{
-              backgroundColor: speed === "average" ? orange[100] : "white"
-            }}
-            aria-label="average"
-            onClick={() => handleChangeSpeed("average")}
-          >
-            <Badge
-              classes={{ badge: classes.average }}
-              variant="dot"
-              style={{ color: `${orange[600]}` }}
-            >
-              <SpeedIcon style={{ color: `${orange[600]}` }} />
-            </Badge>
-          </IconButton>
-          <IconButton
-            style={{
-              backgroundColor: speed === "fast" ? red[100] : "white"
-            }}
-            aria-label="fast"
-            onClick={() => handleChangeSpeed("fast")}
-          >
-            <Badge
-              classes={{ badge: classes.fast }}
-              variant="dot"
-              style={{ color: `${red[600]}` }}
-            >
-              <SpeedIcon style={{ color: `${red[600]}` }} />
-            </Badge>
-          </IconButton>
-        </ButtonGroup>
-      </Paper>
-
-      <Card raised className={classes.card}>
-        <CardActionArea
-          id="visualizerArea"
-          className={classes.actionArea}
-          onClick={() => triggerSorting(algorithm.type)}
+            <SpeedIcon style={{ color: `${green[600]}` }} />
+          </Badge>
+        </IconButton>
+        <IconButton
+          style={{
+            backgroundColor: speed === "average" ? orange[100] : "white"
+          }}
+          aria-label="average"
+          onClick={() => handleChangeSpeed("average")}
         >
-          {isAnimating(algorithm.type) ? (
-            <PauseCircleOutlineIcon id="pauseIcon" className={classes.icon} />
-          ) : (
-            <PlayCircleOutlineIcon id="playIcon" className={classes.icon} />
-          )}
-
-          <CardContent className={classes.content}>
-            <Visualizer algorithm={algorithm} />
-          </CardContent>
-        </CardActionArea>
-
-        <ButtonGroup
-          className={classes.buttons}
-          size="large"
-          variant="text"
-          color="primary"
-          aria-label="contained primary button group"
-          fullWidth
+          <Badge
+            classes={{ badge: classes.average }}
+            variant="dot"
+            style={{ color: `${orange[600]}` }}
+          >
+            <SpeedIcon style={{ color: `${orange[600]}` }} />
+          </Badge>
+        </IconButton>
+        <IconButton
+          style={{
+            backgroundColor: speed === "fast" ? red[100] : "white"
+          }}
+          aria-label="fast"
+          onClick={() => handleChangeSpeed("fast")}
         >
-          <Button onClick={() => getRandomArray(algorithm.type)}>
-            <ShuffleIcon />
-          </Button>
-          <Button onClick={() => getSteadyArray(algorithm.type)}>
-            <SignalCellular4BarIcon />
-          </Button>
-          <Button onClick={() => getReversedArray(algorithm.type)}>
-            <SignalCellular4BarIcon style={{ transform: "scaleX(-1)" }} />
-          </Button>
-          <Button onClick={() => getSteppedArray(algorithm.type)}>
-            <SignalCellularAltIcon />
-          </Button>
-        </ButtonGroup>
-      </Card>
-    </div>
+          <Badge
+            classes={{ badge: classes.fast }}
+            variant="dot"
+            style={{ color: `${red[600]}` }}
+          >
+            <SpeedIcon style={{ color: `${red[600]}` }} />
+          </Badge>
+        </IconButton>
+      </ButtonGroup>
+    </Paper>
+
+    <Card raised className={classes.card}>
+      <CardActionArea
+        id="visualizerArea"
+        className={classes.actionArea}
+        onClick={() => triggerSorting(algorithm.type)}
+      >
+        {isAnimating(algorithm.type) ? (
+          <PauseCircleOutlineIcon id="pauseIcon" className={classes.icon} />
+        ) : (
+          <PlayCircleOutlineIcon id="playIcon" className={classes.icon} />
+        )}
+
+        <CardContent className={classes.content}>
+          <Visualizer algorithm={algorithm} />
+        </CardContent>
+      </CardActionArea>
+
+      <ButtonGroup
+        className={classes.buttons}
+        size="large"
+        variant="text"
+        color="primary"
+        aria-label="contained primary button group"
+        fullWidth
+      >
+        <Button onClick={() => getRandomArray(algorithm.type)}>
+          <ShuffleIcon />
+        </Button>
+        <Button onClick={() => getSteadyArray(algorithm.type)}>
+          <SignalCellular4BarIcon />
+        </Button>
+        <Button onClick={() => getReversedArray(algorithm.type)}>
+          <SignalCellular4BarIcon style={{ transform: "scaleX(-1)" }} />
+        </Button>
+        <Button onClick={() => getSteppedArray(algorithm.type)}>
+          <SignalCellularAltIcon />
+        </Button>
+      </ButtonGroup>
+    </Card>
+  </div>
   );
 };
 
