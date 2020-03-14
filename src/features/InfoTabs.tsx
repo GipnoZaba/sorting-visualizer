@@ -26,6 +26,23 @@ const useStyles = makeStyles((theme: Theme) =>
       borderWidth: "2px",
       borderColor: customColors.primaryDark
     },
+    icon: {
+      [theme.breakpoints.up("xs")]: {
+        fontSize: 15
+      },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: 20
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: 25
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: 30
+      },
+      [theme.breakpoints.up("xl")]: {
+        fontSize: 50
+      }
+    },
     tabContent: {
       height: "80%",
       padding: "1em",
@@ -55,20 +72,20 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           onClick={() => setCurrentTab(1)}
           variant={currentTab === 1 ? "contained" : "text"}
         >
-          <DescriptionIcon />
+          <DescriptionIcon className={classes.icon} />
         </Button>
         <Button
           onClick={() => setCurrentTab(2)}
           variant={currentTab === 2 ? "contained" : "text"}
         >
-          <CodeIcon />
+          <CodeIcon className={classes.icon} />
         </Button>
         <Button
           onClick={() => setCurrentTab(3)}
           variant={currentTab === 3 ? "contained" : "text"}
         >
-          <AddIcon />
-          <RemoveIcon />
+          <AddIcon className={classes.icon} />
+          <RemoveIcon className={classes.icon} />
         </Button>
       </ButtonGroup>
 
@@ -106,7 +123,7 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           Use Cases
         </Typography>
         <Typography variant="body2" color="primary">
-        ---Coming Soon---
+          ---Coming Soon---
         </Typography>
       </Container>
       <Container

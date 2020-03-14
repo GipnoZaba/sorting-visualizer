@@ -53,14 +53,32 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: "flex",
       flexDirection: "column",
-      height: "100%",
+      height: "90%",
       alignItems: "center",
+      width: "30%",
       borderBottomStyle: "solid",
       borderWidth: "2px",
-      borderColor: customColors.secondaryLight
+      borderColor: customColors.secondaryLight,
+      "&:hover": {
+        borderWidth: "5px"
+      }
     },
-    buttons: {
-      flexBasis: "10%"
+    icon: {
+      [theme.breakpoints.up("xs")]: {
+        fontSize: 20
+      },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: 25
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: 30
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: 35
+      },
+      [theme.breakpoints.up("xl")]: {
+        fontSize: 50
+      }
     },
     slow: {
       backgroundColor: green[600],
@@ -114,7 +132,6 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
       <div style={{ marginBottom: "1em" }} />
       <ButtonGroup
         orientation="vertical"
-        className={classes.buttons}
         size="large"
         variant="text"
         color="secondary"
@@ -133,7 +150,10 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
             variant="dot"
             style={{ color: `${green[600]}` }}
           >
-            <SpeedIcon style={{ color: `${green[600]}` }} />
+            <SpeedIcon
+              className={classes.icon}
+              style={{ color: `${green[600]}` }}
+            />
           </Badge>
         </Button>
         <Button
@@ -148,7 +168,10 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
             variant="dot"
             style={{ color: `${orange[600]}` }}
           >
-            <SpeedIcon style={{ color: `${orange[600]}` }} />
+            <SpeedIcon
+              className={classes.icon}
+              style={{ color: `${orange[600]}` }}
+            />
           </Badge>
         </Button>
         <Button
@@ -163,7 +186,10 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
             variant="dot"
             style={{ color: `${red[600]}` }}
           >
-            <SpeedIcon style={{ color: `${red[600]}` }} />
+            <SpeedIcon
+              className={classes.icon}
+              style={{ color: `${red[600]}` }}
+            />
           </Badge>
         </Button>
       </ButtonGroup>
