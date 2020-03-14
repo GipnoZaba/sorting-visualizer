@@ -15,7 +15,8 @@ import {
   Paper,
   IconButton,
   Badge,
-  styled
+  styled,
+  Button
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
@@ -83,6 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       overflow: "visible",
       height: "100%",
+      width: "100%",
       display: "flex",
       flexDirection: "column",
       borderBottomStyle: "solid",
@@ -261,18 +263,18 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           aria-label="contained primary button group"
           fullWidth
         >
-          <IconButton onClick={() => getRandomArray(algorithm.type)}>
+          <Button onClick={() => getRandomArray(algorithm.type)}>
             <ShuffleIcon />
-          </IconButton>
-          <IconButton onClick={() => getSteadyArray(algorithm.type)}>
+          </Button>
+          <Button onClick={() => getSteadyArray(algorithm.type)}>
             <SignalCellular4BarIcon />
-          </IconButton>
-          <IconButton onClick={() => getReversedArray(algorithm.type)}>
+          </Button>
+          <Button onClick={() => getReversedArray(algorithm.type)}>
             <SignalCellular4BarIcon style={{ transform: "scaleX(-1)" }} />
-          </IconButton>
-          <IconButton onClick={() => getSteppedArray(algorithm.type)}>
+          </Button>
+          <Button onClick={() => getSteppedArray(algorithm.type)}>
             <SignalCellularAltIcon />
-          </IconButton>
+          </Button>
         </ButtonGroup>
       </Card>
     </div>

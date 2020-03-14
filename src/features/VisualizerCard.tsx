@@ -8,7 +8,8 @@ import {
   CardContent,
   makeStyles,
   createStyles,
-  Theme
+  Theme,
+  Grid
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 
@@ -16,15 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
       height: "80%",
+      width: "100%",
       overflow: "visible",
       backgroundColor: customColors.greyLight,
       borderBottomStyle: "solid",
       borderWidth: "3px",
       borderColor: customColors.primaryDark
-    },
-    "card-content": {
-      display: "grid",
-      gridTemplateColumns: "1fr 2fr"
     }
   })
 );
@@ -41,9 +39,15 @@ const VisualizerCard: React.FC<{
       className={classes.card}
       style={{ display: visible ? "block" : "none" }}
     >
-      <CardContent className={classes["card-content"]}>
-        <VisualizerContainer algorithm={algorithm} />
-        <VisualizerInfo algorithm={algorithm} />
+      <CardContent>
+        <Grid container>
+          <Grid item xs={4}>
+            <VisualizerContainer algorithm={algorithm} />
+          </Grid>
+          <Grid item xs={8}>
+            <VisualizerInfo algorithm={algorithm} />
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   );
