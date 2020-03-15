@@ -44,7 +44,7 @@ export default class VisualizerStore implements IStore {
 
   @action initialize = () => {
     this.animationSettingsMap.set(AnimationTypes.Swap, true);
-    this.animationSettingsMap.set(AnimationTypes.Comparison, true);
+    this.animationSettingsMap.set(AnimationTypes.Comparison, false);
     this.animationSettingsMap.set(AnimationTypes.Move, true);
     this.animationSettingsMap.set(AnimationTypes.Set, true);
 
@@ -98,7 +98,11 @@ export default class VisualizerStore implements IStore {
           while (animations.length > 0) {
             animation = animations.shift();
 
-            if (animation && !this.animationSettingsMap.get(animation.type)) {
+            if (
+              animation &&
+              !this.animationSettingsMap.get(animation.type) &&
+              animation.type !== AnimationTypes.Finish
+            ) {
               this.animate(animation, array, false);
             } else {
               break;
