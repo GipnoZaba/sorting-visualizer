@@ -3,20 +3,17 @@ import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../app/stores/rootStore";
 import VisualizerCard from "./VisualizerCard";
 import {
-  Container,
   Button,
   makeStyles,
   Theme,
   createStyles,
-  Typography,
-  Paper,
   Box
 } from "@material-ui/core"; //maaaaaaaau
 import { customColors } from "../app/styling/colors";
 import { Algorithms } from "../app/models/visualizerOptions";
 //tut potsemu to net kotika a vernee pusisti
 //if sirlja kotik import kotik to Tartu from TALLINN
-
+/*
 const neigbours = [
   {
     prev: "last",
@@ -39,6 +36,7 @@ const neigbours = [
     next: "Insertion"
   }
 ];
+*/
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

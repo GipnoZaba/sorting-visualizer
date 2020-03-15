@@ -8,16 +8,13 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  Paper,
-  Card,
-  CardContent
+  Paper
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import DescriptionIcon from "@material-ui/icons/Description";
 import CodeIcon from "@material-ui/icons/Code";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import VisualizerContainer from "./VisualizerContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,7 +45,6 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     tabContentContainer: {
-      flexBasis: "80%",
       overflow: "hidden",
       overflowY: "scroll",
       position: "relative",

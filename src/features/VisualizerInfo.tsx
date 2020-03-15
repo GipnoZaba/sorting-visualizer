@@ -10,8 +10,7 @@ import {
   Typography,
   Chip,
   Tooltip,
-  Divider,
-  Container
+  Divider
 } from "@material-ui/core";
 import TimerIcon from "@material-ui/icons/Timer";
 import SdStorageIcon from "@material-ui/icons/SdStorage";
@@ -44,40 +43,38 @@ const VisualizerInfo: React.FC<{ algorithm: ISortingAlgorithm }> = ({
 
   return (
     <Box className={classes.root}>
-      <Box style={{ flexBasis: "20%" }}>
-        <Typography variant="h2">{algorithm.data.title}</Typography>
-        <div className={classes.tags}>
-          <Tooltip title="Average time complexity" interactive>
-            <Chip
-              className={classes.chip}
-              color="primary"
-              icon={<TimerIcon />}
-              label={
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: algorithm.data.timeComplexity
-                  }}
-                ></span>
-              }
-            ></Chip>
-          </Tooltip>
-          <Tooltip title="Space complexity" interactive>
-            <Chip
-              className={classes.chip}
-              color="primary"
-              icon={<SdStorageIcon />}
-              label={
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: algorithm.data.spaceComplexity
-                  }}
-                ></span>
-              }
-            />
-          </Tooltip>
-        </div>
-        <Divider variant="fullWidth" />
-      </Box>
+      <Typography variant="h2">{algorithm.data.title}</Typography>
+      <div className={classes.tags}>
+        <Tooltip title="Average time complexity" interactive>
+          <Chip
+            className={classes.chip}
+            color="primary"
+            icon={<TimerIcon />}
+            label={
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: algorithm.data.timeComplexity
+                }}
+              ></span>
+            }
+          ></Chip>
+        </Tooltip>
+        <Tooltip title="Space complexity" interactive>
+          <Chip
+            className={classes.chip}
+            color="primary"
+            icon={<SdStorageIcon />}
+            label={
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: algorithm.data.spaceComplexity
+                }}
+              ></span>
+            }
+          />
+        </Tooltip>
+      </div>
+      <Divider variant="fullWidth" />
 
       <InfoTabs algorithm={algorithm} />
     </Box>

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ISortingAlgorithm } from "../app/models/sortingAlgorithm";
 import Visualizer from "./Visualizer";
 import { RootStoreContext } from "../app/stores/rootStore";
@@ -11,13 +11,7 @@ import {
   ButtonGroup,
   CardActionArea,
   CardContent,
-  Slider,
-  Paper,
-  IconButton,
-  Badge,
-  styled,
-  Button,
-  Grid
+  Button
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
@@ -25,8 +19,6 @@ import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import SignalCellular4BarIcon from "@material-ui/icons/SignalCellular4Bar";
 import SignalCellularAltIcon from "@material-ui/icons/SignalCellularAlt";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
-import SpeedIcon from "@material-ui/icons/Speed";
-import { green, orange, red, grey } from "@material-ui/core/colors";
 import VisualizerSidebar from "./VisualizerSidebar";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -156,7 +148,7 @@ const VisualizerContainer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           <Button onClick={() => getReversedArray(algorithm.type)}>
             <SignalCellular4BarIcon
               className={classes.icon}
-             style={{ transform: "scaleX(-1)" }}
+              style={{ transform: "scaleX(-1)" }}
             />
           </Button>
           <Button onClick={() => getSteppedArray(algorithm.type)}>

@@ -16,12 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
       gridTemplateRows: "repeat(100, minmax(1px, 1fr))",
       rowGap: "1px"
     },
-    horizontal: {
-      display: "grid",
-      gridTemplateColumns: "repeat(100, minmax(1px, 1fr))",
-      columnGap: "1px",
-      alignItems: "flex-end"
-    },
     bar: {
       display: "flex",
       height: "100%",

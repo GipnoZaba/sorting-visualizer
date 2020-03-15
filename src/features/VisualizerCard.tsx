@@ -3,21 +3,12 @@ import React from "react";
 import { ISortingAlgorithm } from "../app/models/sortingAlgorithm";
 import VisualizerContainer from "./VisualizerContainer";
 import VisualizerInfo from "./VisualizerInfo";
-import {
-  Card,
-  CardContent,
-  makeStyles,
-  createStyles,
-  Theme,
-  Grid,
-  Typography
-} from "@material-ui/core";
+import { Card, makeStyles, createStyles, Theme, Grid } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
-import InfoTabs from "./InfoTabs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    card: {
+    root: {
       height: "80%",
       width: "100%",
       padding: "1em 1em 1.5em 1em",
@@ -26,6 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
       borderWidth: "3px",
       borderColor: customColors.primaryDark,
       overflow: "visible"
+    },
+    content: {
+      height: "100%"
     }
   })
 );
@@ -39,10 +33,10 @@ const VisualizerCard: React.FC<{
   return (
     <Card
       raised
-      className={classes.card}
+      className={classes.root}
       style={{ display: visible ? "block" : "none" }}
     >
-      <Grid container style={{ height: "100%" }}>
+      <Grid container className={classes.content}>
         <Grid item xs={4}>
           <VisualizerContainer algorithm={algorithm} />
         </Grid>
