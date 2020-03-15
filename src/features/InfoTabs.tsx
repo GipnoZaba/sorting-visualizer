@@ -8,20 +8,24 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  Paper
+  Paper,
+  Card,
+  CardContent
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import DescriptionIcon from "@material-ui/icons/Description";
 import CodeIcon from "@material-ui/icons/Code";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import VisualizerContainer from "./VisualizerContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     tabs: {
+      display: "flex",
+      flexDirection: "column",
+      height: "100%",
       marginTop: "1em",
-      marginRight: "1.5em",
-      height: "21em",
       borderBottomStyle: "solid",
       borderWidth: "2px",
       borderColor: customColors.primaryDark
@@ -43,11 +47,17 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: 50
       }
     },
-    tabContent: {
-      height: "80%",
-      padding: "1em",
+    tabContentContainer: {
+      flexBasis: "80%",
+      overflow: "hidden",
       overflowY: "scroll",
-      overflowX: "hidden"
+      position: "relative",
+      flexGrow: 1,
+      padding: "1em"
+    },
+    tabContent: {
+      overflow: "auto",
+      position: "absolute"
     }
   })
 );
@@ -90,22 +100,23 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
       </ButtonGroup>
 
       <Container
-        className={classes.tabContent}
+        className={classes.tabContentContainer}
         style={{ display: currentTab === 1 ? "block" : "none" }}
       >
         <Typography variant="h5" gutterBottom>
           Description
         </Typography>
-        <Typography variant="body2">
-          <p
-            dangerouslySetInnerHTML={{
-              __html: algorithm.data.description
-            }}
-          ></p>
-        </Typography>
+
+        <Typography
+          className={classes.tabContent}
+          variant="body2"
+          dangerouslySetInnerHTML={{
+            __html: algorithm.data.description
+          }}
+        ></Typography>
       </Container>
       <Container
-        className={classes.tabContent}
+        className={classes.tabContentContainer}
         style={{ display: currentTab === 2 ? "block" : "none" }}
       >
         <Typography variant="h5" gutterBottom>
@@ -116,7 +127,7 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         </Typography>
       </Container>
       <Container
-        className={classes.tabContent}
+        className={classes.tabContentContainer}
         style={{ display: currentTab === 3 ? "block" : "none" }}
       >
         <Typography variant="h5" gutterBottom>
@@ -125,12 +136,6 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         <Typography variant="body2" color="primary">
           ---Coming Soon---
         </Typography>
-      </Container>
-      <Container
-        className={classes.tabContent}
-        style={{ display: currentTab === 4 ? "block" : "none" }}
-      >
-        <Typography variant="body2">333</Typography>
       </Container>
     </Paper>
   );

@@ -9,9 +9,11 @@ import {
   makeStyles,
   createStyles,
   Theme,
-  Grid
+  Grid,
+  Typography
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
+import InfoTabs from "./InfoTabs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,11 +21,11 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "80%",
       width: "100%",
       padding: "1em 1em 1.5em 1em",
-      overflow: "visible",
       backgroundColor: customColors.greyLight,
       borderBottomStyle: "solid",
       borderWidth: "3px",
-      borderColor: customColors.primaryDark
+      borderColor: customColors.primaryDark,
+      overflow: "visible"
     }
   })
 );
@@ -40,14 +42,14 @@ const VisualizerCard: React.FC<{
       className={classes.card}
       style={{ display: visible ? "block" : "none" }}
     >
-        <Grid container style={{ height: "100%" }}>
-          <Grid item xs={4}>
-            <VisualizerContainer algorithm={algorithm} />
-          </Grid>
-          <Grid item xs={8}>
-            <VisualizerInfo algorithm={algorithm} />
-          </Grid>
+      <Grid container style={{ height: "100%" }}>
+        <Grid item xs={4}>
+          <VisualizerContainer algorithm={algorithm} />
         </Grid>
+        <Grid item xs={8}>
+          <VisualizerInfo algorithm={algorithm} />
+        </Grid>
+      </Grid>
     </Card>
   );
 };

@@ -22,3 +22,15 @@ body {
 #visualizerArea:hover > #pauseIcon {
   display: block;
 }
+
+@media screen and (min-width: 1280px) {
+  html {
+    font-size: calc(16px + 6 * ((100vw - 1280px) / 680));
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  html {
+    font-size: calc(16px + 6 * ((100vw - 960px) / 680));
+  }
+}

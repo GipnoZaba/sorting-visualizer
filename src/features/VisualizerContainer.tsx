@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       height: "100%",
-      boxSizing: "border-box",
       padding: 0
     },
     buttons: {

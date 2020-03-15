@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      height: "100%"
     },
     tags: {
       display: "flex",
@@ -42,42 +43,44 @@ const VisualizerInfo: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const classes = useStyles();
 
   return (
-    <Container className={classes.root}>
-      <Typography variant="h2">{algorithm.data.title}</Typography>
-      <div className={classes.tags}>
-        <Tooltip title="Average time complexity" interactive>
-          <Chip
-            className={classes.chip}
-            color="primary"
-            icon={<TimerIcon />}
-            label={
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: algorithm.data.timeComplexity
-                }}
-              ></p>
-            }
-          ></Chip>
-        </Tooltip>
-        <Tooltip title="Space complexity" interactive>
-          <Chip
-            className={classes.chip}
-            color="primary"
-            icon={<SdStorageIcon />}
-            label={
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: algorithm.data.spaceComplexity
-                }}
-              ></p>
-            }
-          />
-        </Tooltip>
-      </div>
-      <Divider variant="fullWidth" />
-      
+    <Box className={classes.root}>
+      <Box style={{ flexBasis: "20%" }}>
+        <Typography variant="h2">{algorithm.data.title}</Typography>
+        <div className={classes.tags}>
+          <Tooltip title="Average time complexity" interactive>
+            <Chip
+              className={classes.chip}
+              color="primary"
+              icon={<TimerIcon />}
+              label={
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: algorithm.data.timeComplexity
+                  }}
+                ></span>
+              }
+            ></Chip>
+          </Tooltip>
+          <Tooltip title="Space complexity" interactive>
+            <Chip
+              className={classes.chip}
+              color="primary"
+              icon={<SdStorageIcon />}
+              label={
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: algorithm.data.spaceComplexity
+                  }}
+                ></span>
+              }
+            />
+          </Tooltip>
+        </div>
+        <Divider variant="fullWidth" />
+      </Box>
+
       <InfoTabs algorithm={algorithm} />
-    </Container>
+    </Box>
   );
 };
 
