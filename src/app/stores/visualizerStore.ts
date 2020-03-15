@@ -20,7 +20,7 @@ import SelectionSort from "../../algorithms/selectionSort";
 import QuickSort from "../../algorithms/quickSort";
 import MergeSort from "../../algorithms/mergeSort";
 import { remap } from "../common/utils/mathHelpers";
-import { green } from "@material-ui/core/colors";
+import { green, blue, purple } from "@material-ui/core/colors";
 
 export default class VisualizerStore implements IStore {
   rootStore: RootStore;
@@ -28,7 +28,7 @@ export default class VisualizerStore implements IStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
 
-    this.initAlgorithms();
+    this.initialize();
   }
 
   elementsCount = 50;
@@ -39,8 +39,27 @@ export default class VisualizerStore implements IStore {
   @observable arraysMap = new Map<Algorithms, ISortable[]>();
   animationsMap = new Map<Algorithms, IAnimation[]>();
   @observable animatingMap = new Map<Algorithms, boolean>();
+  @observable animationSettingsMap = new Map<AnimationTypes, boolean>();
+  @observable animationColorsMap = new Map<AnimationTypes, string>();
 
-  @action initAlgorithms = () => {
+  @action initialize = () => {
+    this.animationSettingsMap.set(AnimationTypes.Swap, true);
+    this.animationSettingsMap.set(AnimationTypes.Comparison, true);
+    this.animationSettingsMap.set(AnimationTypes.Move, true);
+    this.animationSettingsMap.set(AnimationTypes.Set, true);
+
+    this.animationColorsMap.set(
+      AnimationTypes.Swap,
+      customColors.secondaryDark
+    );
+    this.animationColorsMap.set(
+      AnimationTypes.Comparison,
+      customColors.complementaryDark
+    );
+    this.animationColorsMap.set(AnimationTypes.Move, blue[500]);
+    this.animationColorsMap.set(AnimationTypes.Set, purple[500]);
+    this.animationColorsMap.set(AnimationTypes.Finish, green[500]);
+
     this.algorithmsMap.set(Algorithms.BubbleSort, new BubbleSort());
     this.algorithmsMap.set(Algorithms.InsertionSort, new InsertionSort());
     this.algorithmsMap.set(Algorithms.SelectionSort, new SelectionSort());
@@ -70,15 +89,24 @@ export default class VisualizerStore implements IStore {
       let array = this.getArray(algorithm);
       let animations = this.setAnimations(
         algorithm,
-        sortingAlgorithm
-          .sort(array)
+        sortingAlgorithm.sort(array)
       );
 
       var interval = setInterval(() => {
         if (this.isAnimating(algorithm)) {
-          let animation = animations.shift();
+          var animation;
+          while (animations.length > 0) {
+            animation = animations.shift();
+
+            if (animation && !this.animationSettingsMap.get(animation.type)) {
+              this.animate(animation, array, false);
+            } else {
+              break;
+            }
+          }
+
           if (animation) {
-            this.animate(animation, array);
+            this.animate(animation, array, true);
           } else {
             this.triggerIsAnimating(algorithm, false);
             clearInterval(interval);
@@ -117,33 +145,55 @@ export default class VisualizerStore implements IStore {
     }
   };
 
-  @action animate(animation: IAnimation, array: ISortable[]) {
-    array.forEach(x => (x.color = customColors.primary));
+  @action animate(
+    animation: IAnimation,
+    array: ISortable[],
+    animated: boolean
+  ) {
+    if (animated) {
+      array.forEach(x => (x.color = customColors.primary));
+    }
+
     switch (animation.type) {
       case AnimationTypes.Comparison:
-        array[animation.index1].color = customColors.complementaryDark;
-        array[animation.index2].color = customColors.complementaryDark;
+        if (animated) {
+          array[animation.index1].color = this.getColor(
+            AnimationTypes.Comparison
+          );
+          array[animation.index2].color = this.getColor(
+            AnimationTypes.Comparison
+          );
+        }
         break;
       case AnimationTypes.Swap:
+        if (animated) {
+          array[animation.index1].color = this.getColor(AnimationTypes.Swap);
+          array[animation.index2].color = this.getColor(AnimationTypes.Swap);
+        }
+
         let tmp = array[animation.index1];
         array[animation.index1] = array[animation.index2];
-        array[animation.index1].color = customColors.secondaryDark;
         array[animation.index2] = tmp;
-        array[animation.index2].color = customColors.secondaryDark;
         break;
       case AnimationTypes.Move:
         array[animation.index2] = array[animation.index1];
-        array[animation.index2].color = customColors.secondary;
+
+        if (animated) {
+          array[animation.index2].color = this.getColor(AnimationTypes.Move);
+        }
         break;
       case AnimationTypes.Set:
         if (animation.element) {
           array[animation.index2] = animation.element;
-          array[animation.index2].color = customColors.secondaryDark;
+
+          if (animated) {
+            array[animation.index2].color = this.getColor(AnimationTypes.Set);
+          }
         }
         break;
       case AnimationTypes.Finish:
         for (let i = 0; i <= animation.index1; i++) {
-          array[i].color = green[500];
+          array[i].color = this.getColor(AnimationTypes.Finish);
         }
         break;
     }
@@ -218,7 +268,16 @@ export default class VisualizerStore implements IStore {
     return this.animatingMap.get(algorithm) ?? false;
   };
 
+  getColor = (type: AnimationTypes): string => {
+    return this.animationColorsMap.get(type) ?? customColors.grey;
+  };
+
   @action triggerIsAnimating = (algorithm: Algorithms, value: boolean) => {
     this.animatingMap.set(algorithm, value);
+  };
+
+  @action toggleAnimationSettings = (type: AnimationTypes) => {
+    let currentValue = this.animationSettingsMap.get(type);
+    this.animationSettingsMap.set(type, !currentValue ?? true);
   };
 }

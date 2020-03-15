@@ -15,6 +15,7 @@ import { green, orange, red } from "@material-ui/core/colors";
 import { RootStoreContext } from "../app/stores/rootStore";
 import { ISortingAlgorithm } from "../app/models/sortingAlgorithm";
 import SpeedIcon from "@material-ui/icons/Speed";
+import VisualizerSettings from "./VisualizerSettings";
 
 const marks = [
   {
@@ -113,6 +114,8 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
 
   return (
     <Paper className={classes.root} elevation={20}>
+      <VisualizerSettings />
+
       <div style={{ marginTop: "1em" }} />
       <Slider
         style={{ color: `${customColors.secondary}` }}
@@ -129,6 +132,7 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         }
       />
       <div style={{ marginBottom: "1em" }} />
+      
       <ButtonGroup
         orientation="vertical"
         size="large"

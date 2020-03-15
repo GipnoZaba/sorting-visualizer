@@ -45,8 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     tabContentContainer: {
-      overflow: "hidden",
-      overflowY: "scroll",
+      overflow: "auto",
       position: "relative",
       flexGrow: 1,
       padding: "1em"

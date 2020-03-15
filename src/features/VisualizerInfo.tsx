@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
+      marginRight: "1.5em",
       flexDirection: "column",
       height: "100%"
     },
