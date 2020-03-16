@@ -12,9 +12,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import {
   FormControl,
-  InputLabel,
   Select,
-  Input,
   MenuItem,
   ListSubheader
 } from "@material-ui/core";
