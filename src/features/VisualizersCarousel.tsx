@@ -7,7 +7,8 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  Box
+  Box,
+  Slide
 } from "@material-ui/core"; //maaaaaaaau
 import { customColors } from "../app/styling/colors";
 import { Algorithms } from "../app/models/visualizerOptions";

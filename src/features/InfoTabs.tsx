@@ -45,13 +45,14 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     tabContentContainer: {
-      overflow: "auto",
+      overflowY: "auto",
       position: "relative",
       flexGrow: 1,
       padding: "1em"
     },
     tabContent: {
-      overflow: "auto",
+      paddingRight: "1em",
+      overflowY: "auto",
       position: "absolute"
     }
   })

@@ -31,12 +31,13 @@ export default class VisualizerStore implements IStore {
     this.initialize();
   }
 
-  elementsCount = 50;
   animationSpeed = 10;
   @observable speed = "average";
 
   algorithmsMap = new Map<Algorithms, ISortingAlgorithm>();
   @observable arraysMap = new Map<Algorithms, ISortable[]>();
+  @observable elementsCountMap = new Map<Algorithms, number>();
+
   animationsMap = new Map<Algorithms, IAnimation[]>();
   @observable animatingMap = new Map<Algorithms, boolean>();
   @observable animationSettingsMap = new Map<AnimationTypes, boolean>();
@@ -60,6 +61,12 @@ export default class VisualizerStore implements IStore {
     this.animationColorsMap.set(AnimationTypes.Set, purple[500]);
     this.animationColorsMap.set(AnimationTypes.Finish, green[500]);
 
+    this.elementsCountMap.set(Algorithms.BubbleSort, 30);
+    this.elementsCountMap.set(Algorithms.InsertionSort, 50);
+    this.elementsCountMap.set(Algorithms.SelectionSort, 80);
+    this.elementsCountMap.set(Algorithms.QuickSort, 100);
+    this.elementsCountMap.set(Algorithms.MergeSort, 100);
+
     this.algorithmsMap.set(Algorithms.BubbleSort, new BubbleSort());
     this.algorithmsMap.set(Algorithms.InsertionSort, new InsertionSort());
     this.algorithmsMap.set(Algorithms.SelectionSort, new SelectionSort());
@@ -69,7 +76,7 @@ export default class VisualizerStore implements IStore {
     this.algorithmsMap.forEach(x =>
       this.arraysMap.set(
         x.type,
-        generateSortableNumbers(1, 100, this.elementsCount)
+        generateSortableNumbers(1, 100, this.getElementsCount(x.type))
       )
     );
   };
@@ -121,17 +128,18 @@ export default class VisualizerStore implements IStore {
   };
 
   @action handleBarsAmountChange = (value: number, algorithm: Algorithms) => {
-    if (value < 5 || value > 200 || value === this.elementsCount) {
+    if (
+      value < 5 ||
+      value > 200 ||
+      value === this.getElementsCount(algorithm)
+    ) {
       return;
     }
 
-    this.elementsCount = value;
+    this.elementsCountMap.set(algorithm, value);
     this.resetAnimations(algorithm);
 
-    this.arraysMap.set(
-      algorithm,
-      generateSortableNumbers(1, 100, this.elementsCount)
-    );
+    this.arraysMap.set(algorithm, generateSortableNumbers(1, 100, value));
   };
 
   @action changeSpeed = (speed: string) => {
@@ -208,23 +216,28 @@ export default class VisualizerStore implements IStore {
 
     this.setArray(
       algorithm,
-      generateSortableNumbers(0, 25, this.elementsCount)
+      generateSortableNumbers(0, 25, this.getElementsCount(algorithm))
     );
   };
 
   @action getSteadyArray = (algorithm: Algorithms) => {
     this.resetAnimations(algorithm);
 
-    this.setArray(algorithm, generateSteadySortableNumbers(this.elementsCount));
+    this.setArray(
+      algorithm,
+      generateSteadySortableNumbers(this.getElementsCount(algorithm))
+    );
   };
 
   @action getReversedArray = (algorithm: Algorithms) => {
     this.resetAnimations(algorithm);
 
     let array: ISortable[] = [];
-    for (let i = 1; i <= this.elementsCount; i++) {
+    for (let i = 1; i <= this.getElementsCount(algorithm); i++) {
       array.unshift(
-        new SortableNumber(remap([0, this.elementsCount], [0, 100], i))
+        new SortableNumber(
+          remap([0, this.getElementsCount(algorithm)], [0, 100], i)
+        )
       );
     }
 
@@ -234,18 +247,25 @@ export default class VisualizerStore implements IStore {
   @action getSteppedArray = (algorithm: Algorithms) => {
     this.resetAnimations(algorithm);
 
-    this.setArray(algorithm, generateSteppedArray(this.elementsCount));
+    this.setArray(
+      algorithm,
+      generateSteppedArray(this.getElementsCount(algorithm))
+    );
   };
 
   @action resetAnimations(algorithm: Algorithms) {
-    this.setAnimations(algorithm, []);
     if (this.isAnimating(algorithm)) {
       this.triggerIsAnimating(algorithm, false);
     }
+    this.setAnimations(algorithm, []);
   }
 
   getAlgorithm = (algorithm: Algorithms): ISortingAlgorithm => {
     return this.algorithmsMap.get(algorithm) ?? new BubbleSort();
+  };
+
+  getElementsCount = (algorithm: Algorithms): number => {
+    return this.elementsCountMap.get(algorithm) ?? 50;
   };
 
   getArray = (algorithm: Algorithms): ISortable[] => {

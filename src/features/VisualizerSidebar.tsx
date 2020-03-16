@@ -103,6 +103,7 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const rootStore = useContext(RootStoreContext);
 
   const {
+    getElementsCount,
     handleBarsAmountChange,
     changeSpeed,
     speed
@@ -122,17 +123,17 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         min={5}
         max={200}
         orientation="vertical"
-        defaultValue={25}
+        defaultValue={getElementsCount(algorithm.type)}
         aria-labelledby="discrete-slider-custom"
         step={1}
-        valueLabelDisplay="on"
+        valueLabelDisplay="auto"
         marks={marks}
         onChange={(event, value) =>
           handleBarsAmountChange(Number(value), algorithm.type)
         }
       />
       <div style={{ marginBottom: "1em" }} />
-      
+
       <ButtonGroup
         orientation="vertical"
         size="large"

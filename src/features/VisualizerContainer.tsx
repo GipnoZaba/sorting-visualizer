@@ -78,12 +78,10 @@ const useStyles = makeStyles((theme: Theme) =>
     iconPlay: {
       zIndex: 1,
       position: "absolute",
-      left: "50%",
-      marginLeft: "-25%",
-      top: "50%",
-      marginTop: "-25%",
-      width: "5em",
-      height: "5em",
+      left: "25%",
+      top: "25%",
+      width: "50%",
+      height: "50%",
       color: "white",
       "&:hover": {
         transform: "scale(1.02)"
