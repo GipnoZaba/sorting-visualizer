@@ -7,8 +7,7 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  Box,
-  Slide
+  Box
 } from "@material-ui/core"; //maaaaaaaau
 import { customColors } from "../app/styling/colors";
 import { Algorithms } from "../app/models/visualizerOptions";
@@ -73,25 +72,12 @@ const VisualizersCarousel = () => {
 
   const rootStore = useContext(RootStoreContext);
 
-  const { getAlgorithm } = rootStore.visualizerStore;
-
-  const [currentCard, setCurrentCard] = useState(1);
-
-  const nextSlide = () => {
-    if (currentCard >= 5) {
-      setCurrentCard(1);
-    } else {
-      setCurrentCard(currentCard + 1);
-    }
-  };
-
-  const prevSlide = () => {
-    if (currentCard <= 1) {
-      setCurrentCard(5);
-    } else {
-      setCurrentCard(currentCard - 1);
-    }
-  };
+  const {
+    getAlgorithm,
+    nextCard,
+    prevCard,
+    currentCardIndex
+  } = rootStore.visualizerStore;
 
   return (
     <Box className={classes.carousel}>
@@ -100,7 +86,7 @@ const VisualizersCarousel = () => {
           className={classes.button}
           variant="contained"
           color="primary"
-          onClick={() => prevSlide()}
+          onClick={() => prevCard()}
         >
           Back
         </Button>
@@ -109,23 +95,23 @@ const VisualizersCarousel = () => {
       <Box className={classes.cardContainer}>
         <VisualizerCard
           algorithm={getAlgorithm(Algorithms.BubbleSort)}
-          visible={currentCard === 1}
+          visible={currentCardIndex === 1}
         />
         <VisualizerCard
           algorithm={getAlgorithm(Algorithms.InsertionSort)}
-          visible={currentCard === 2}
+          visible={currentCardIndex === 2}
         />
         <VisualizerCard
           algorithm={getAlgorithm(Algorithms.SelectionSort)}
-          visible={currentCard === 3}
+          visible={currentCardIndex === 3}
         />
         <VisualizerCard
           algorithm={getAlgorithm(Algorithms.QuickSort)}
-          visible={currentCard === 4}
+          visible={currentCardIndex === 4}
         />
         <VisualizerCard
           algorithm={getAlgorithm(Algorithms.MergeSort)}
-          visible={currentCard === 5}
+          visible={currentCardIndex === 5}
         />
       </Box>
 
@@ -134,7 +120,7 @@ const VisualizersCarousel = () => {
           className={classes.button}
           variant="contained"
           color="primary"
-          onClick={() => nextSlide()}
+          onClick={() => nextCard()}
         >
           Next
         </Button>

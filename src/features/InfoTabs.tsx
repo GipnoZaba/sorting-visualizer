@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "1em"
     },
     tabContent: {
-      paddingRight: "1em",
       overflowY: "auto",
       position: "absolute"
     }

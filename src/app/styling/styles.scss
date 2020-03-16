@@ -11,8 +11,11 @@ body {
 	position: absolute;
 	top: 0;
   left: 0;
-  background: rgb(2,0,36);
   background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(25,184,183,1) 0%, rgba(0,128,255,1) 100%); 
+}
+
+#appBar {
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(25,184,183,1) 0%, rgba(0,128,255,1) 100%); 
 }
 
 #pauseIcon {

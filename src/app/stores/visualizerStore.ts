@@ -33,6 +33,7 @@ export default class VisualizerStore implements IStore {
 
   animationSpeed = 10;
   @observable speed = "average";
+  @observable currentCardIndex = 1;
 
   algorithmsMap = new Map<Algorithms, ISortingAlgorithm>();
   @observable arraysMap = new Map<Algorithms, ISortable[]>();
@@ -303,5 +304,25 @@ export default class VisualizerStore implements IStore {
   @action toggleAnimationSettings = (type: AnimationTypes) => {
     let currentValue = this.animationSettingsMap.get(type);
     this.animationSettingsMap.set(type, !currentValue ?? true);
+  };
+
+  @action nextCard = () => {
+    if (this.currentCardIndex >= 5) {
+      this.currentCardIndex = 1;
+    } else {
+      this.currentCardIndex += 1;
+    }
+  };
+
+  @action prevCard = () => {
+    if (this.currentCardIndex <= 1) {
+      this.currentCardIndex = 5;
+    } else {
+      this.currentCardIndex -= 1;
+    }
+  };
+
+  @action setCard = (index: number) => {
+    this.currentCardIndex = index;
   };
 }
