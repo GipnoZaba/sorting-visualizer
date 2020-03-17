@@ -11,6 +11,29 @@ import {
 import { swap } from "../app/common/utils/arrayHelpers";
 import { squared, constant } from "../app/common/utils/mathHelpers";
 
+const javascriptCode = 
+`function bubble_Sort(a)
+{
+    var swapp;
+    var n = a.length-1;
+    var x=a;
+    do {
+        swapp = false;
+        for (var i=0; i < n; i++)
+        {
+            if (x[i] < x[i+1])
+            {
+              var temp = x[i];
+              x[i] = x[i+1];
+              x[i+1] = temp;
+              swapp = true;
+            }
+        }
+        n--;
+    } while (swapp);
+return x; 
+}`;
+
 const data: IAlgorithmData = {
   title: "Bubble Sort",
   class: "Comparison sort",
@@ -20,12 +43,17 @@ const data: IAlgorithmData = {
                 them if they are in the wrong order. The pass through
                 the list is repeated until the list is sorted.</p>`,
   timeComplexity: squared,
-  spaceComplexity: constant
+  spaceComplexity: constant,
+  implementations: new Map<string, string>()
 };
 
 class BubbleSort implements ISortingAlgorithm {
   type = Algorithms.BubbleSort;
   data = data;
+
+  constructor() {
+    this.data.implementations.set("javascript", javascriptCode);
+  }
 
   sort(array: ISortable[]) {
     array = array.slice();

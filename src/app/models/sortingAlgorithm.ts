@@ -1,6 +1,5 @@
 import { ISortable } from "./sortable";
 import { Algorithms, IAnimation } from "./visualizerOptions";
-import { ReactNode } from "react";
 
 export interface IAlgorithmData {
   title: string;
@@ -8,6 +7,7 @@ export interface IAlgorithmData {
   description: string;
   timeComplexity: string;
   spaceComplexity: string;
+  implementations: Map<string, string>;
 }
 
 export interface ISortingAlgorithm {

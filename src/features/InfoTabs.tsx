@@ -8,13 +8,18 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  Paper
+  Paper,
+  List,
+  ListItem,
+  ListItemText
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import DescriptionIcon from "@material-ui/icons/Description";
 import CodeIcon from "@material-ui/icons/Code";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import { CopyBlock, dracula } from "react-code-blocks";
+import ImplementationModal from "./ImplementationModal";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,9 +68,18 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const classes = useStyles();
 
   const [currentTab, setCurrentTab] = useState(1);
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <Paper className={classes.tabs} elevation={5}>
+      <ImplementationModal
+        open={openModal}
+        language="javascript"
+        code={algorithm.data.implementations.get("javascript") ?? ""}
+        size="sm"
+        handleClose={() => setOpenModal(false)}
+      />
+
       <ButtonGroup
         size="large"
         variant="text"
@@ -117,9 +131,13 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         <Typography variant="h5" gutterBottom>
           Implementaions
         </Typography>
-        <Typography variant="body2" color="primary">
-          ---Coming Soon---
-        </Typography>
+        <div className={classes.tabContent}>
+          <List>
+            <ListItem button onClick={() => setOpenModal(true)}>
+              <ListItemText primary="Javascript" />
+            </ListItem>
+          </List>
+        </div>
       </Container>
       <Container
         className={classes.tabContentContainer}

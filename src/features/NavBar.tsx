@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1, 1, 1, 7),
       transition: theme.transitions.create("width"),
       width: "100%",
+      color: "white",
       [theme.breakpoints.up("md")]: {
         width: "auto",
         minWidth: "15em"
@@ -82,7 +83,9 @@ const PrimarySearchAppBar = () => {
   const { currentCardIndex, setCard } = rootStore.visualizerStore;
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setCard(event.target.value as number);
+    if ((event.target.value as number) !== undefined) {
+      setCard(event.target.value as number);
+    }
   };
 
   return (
@@ -110,9 +113,6 @@ const PrimarySearchAppBar = () => {
                   />
                 }
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 <ListSubheader
                   dangerouslySetInnerHTML={{
                     __html: squared
