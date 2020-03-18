@@ -5,15 +5,15 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { CopyBlock, dracula } from "react-code-blocks";
+import { CopyBlock, github } from "react-code-blocks";
+import { Implementation } from "../app/models/sortingAlgorithm";
 
 const ImplementationModal: React.FC<{
   open: boolean;
-  language: string;
-  code: string;
+  implementation: Implementation;
   size: DialogProps["maxWidth"];
   handleClose: () => void;
-}> = ({ open, language, code, size, handleClose }) => {
+}> = ({ open, implementation, size, handleClose }) => {
   return (
     <Dialog
       open={open}
@@ -24,14 +24,14 @@ const ImplementationModal: React.FC<{
       aria-labelledby="scroll-dialog-title"
       aria-describedby="scroll-dialog-description"
     >
-      <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+      <DialogTitle id="scroll-dialog-title">{implementation.title}</DialogTitle>
       <DialogContent dividers={true}>
         <DialogContentText id="scroll-dialog-description" tabIndex={-1}>
           <CopyBlock
-            text={code}
-            language={language}
+            text={implementation.code}
+            language={implementation.language}
             showLineNumbers={true}
-            theme={dracula}
+            theme={github}
             wrapLines
             codeBlock
           />

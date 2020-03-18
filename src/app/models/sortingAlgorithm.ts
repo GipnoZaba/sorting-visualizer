@@ -12,11 +12,20 @@ export interface IAlgorithmData {
 
 export class Implementation {
   language: string;
+  title: string;
   code: string;
+  icon: () => JSX.Element;
 
-  constructor(language: string, code: string) {
+  constructor(
+    language: string,
+    title: string,
+    code: string,
+    icon: () => JSX.Element
+  ) {
     this.language = language;
+    this.title = title;
     this.code = code;
+    this.icon = icon;
   }
 }
 

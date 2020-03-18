@@ -14,7 +14,9 @@ import {
   Paper,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  ListItemIcon,
+  SvgIcon
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import DescriptionIcon from "@material-ui/icons/Description";
@@ -22,6 +24,7 @@ import CodeIcon from "@material-ui/icons/Code";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import ImplementationModal from "./ImplementationModal";
+import { JavascriptIcon } from "../app/styling/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,6 +63,26 @@ const useStyles = makeStyles((theme: Theme) =>
     tabContent: {
       overflowY: "auto",
       position: "absolute"
+    },
+    implementationsList: {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      "& > *": {
+        margin: theme.spacing(0.5)
+      }
+    },
+    listElement: {
+      borderStyle: "dashed",
+      borderWidth: "2px",
+      borderColor: theme.palette.grey[400],
+      width: "auto",
+      "&:hover": {
+        borderColor: theme.palette.grey[700]
+      }
+    },
+    listElementText: {
+      marginLeft: "0.5em"
     }
   })
 );
@@ -72,7 +95,7 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const [currentTab, setCurrentTab] = useState(1);
   const [currentImplementation, setCurrentImplementation] = useState<
     Implementation
-  >(new Implementation("", ""));
+  >(new Implementation("", "", "", JavascriptIcon));
   const [openModal, setOpenModal] = useState(false);
 
   const openImplementation = (implementation: Implementation) => {
@@ -84,8 +107,7 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
     <Paper className={classes.tabs} elevation={5}>
       <ImplementationModal
         open={openModal}
-        language={currentImplementation.language}
-        code={currentImplementation.code}
+        implementation={currentImplementation}
         size="sm"
         handleClose={() => setOpenModal(false)}
       />
@@ -142,15 +164,20 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           Implementaions
         </Typography>
         <div className={classes.tabContent}>
-          <List>
+          <List className={classes.implementationsList}>
             {algorithm.data.implementations.map(implementation => {
               return (
                 <ListItem
+                  className={classes.listElement}
                   key={implementation.language}
                   button
                   onClick={() => openImplementation(implementation)}
                 >
-                  <ListItemText primary={implementation.language} />
+                  <implementation.icon />
+                  <ListItemText
+                    className={classes.listElementText}
+                    primary={implementation.title}
+                  />
                 </ListItem>
               );
             })}
