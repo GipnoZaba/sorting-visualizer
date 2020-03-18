@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     vertical: {
       display: "grid",
-      gridTemplateRows: "repeat(100, minmax(1px, 1fr))",
+      gridTemplateRows: "auto",
       rowGap: "1px"
     },
     bar: {
@@ -33,12 +33,7 @@ const Visualizer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const { getArray } = rootStore.visualizerStore;
 
   return (
-    <div
-      className={[classes.visualizer, classes.vertical].join(" ")}
-      style={{
-        gridTemplateRows: `repeat(${getArray(algorithm.type).length}, auto)`
-      }}
-    >
+    <div className={[classes.visualizer, classes.vertical].join(" ")}>
       {getArray(algorithm.type).map((element, index) => {
         return (
           <div key={index} className={classes.bar}>
