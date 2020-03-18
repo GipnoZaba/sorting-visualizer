@@ -10,6 +10,7 @@ import {
   PythonIcon,
   PhpIcon
 } from "../styling/icons";
+import { railscast, googlecode, atomOneDark, monokai, obsidian } from "react-code-blocks";
 
 export interface IAlgorithmData {
   title: string;
@@ -23,24 +24,26 @@ export interface IAlgorithmData {
 export class ProgrammingLanguage {
   language: string;
   title: string;
+  theme: any;
   icon: () => JSX.Element;
 
-  constructor(language: string, title: string, icon: () => JSX.Element) {
+  constructor(language: string, title: string, theme: any, icon: () => JSX.Element) {
     this.language = language;
     this.title = title;
+    this.theme = theme;
     this.icon = icon;
   }
 }
 
 export const languages = [
-  new ProgrammingLanguage("javascript", "JavaScript", JavascriptIcon),
-  new ProgrammingLanguage("typescript", "TypeScript", TypeScriptIcon),
-  new ProgrammingLanguage("java", "Java", JavaIcon),
-  new ProgrammingLanguage("csharp", "C#", CSharpIcon),
-  new ProgrammingLanguage("cpp", "C++", CPlusPlusIcon),
-  new ProgrammingLanguage("c", "C", CIcon),
-  new ProgrammingLanguage("python", "Python", PythonIcon),
-  new ProgrammingLanguage("php", "Php", PhpIcon)
+  new ProgrammingLanguage("javascript", "JavaScript", monokai, JavascriptIcon),
+  new ProgrammingLanguage("typescript", "TypeScript", monokai, TypeScriptIcon),
+  new ProgrammingLanguage("java", "Java", railscast, JavaIcon),
+  new ProgrammingLanguage("csharp", "C#", googlecode, CSharpIcon),
+  new ProgrammingLanguage("cpp", "C++", googlecode, CPlusPlusIcon),
+  new ProgrammingLanguage("c", "C", googlecode, CIcon),
+  new ProgrammingLanguage("python", "Python", atomOneDark, PythonIcon),
+  new ProgrammingLanguage("php", "Php", obsidian, PhpIcon)
 ];
 
 export interface ISortingAlgorithm {

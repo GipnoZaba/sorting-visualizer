@@ -22,6 +22,7 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import CodeIcon from "@material-ui/icons/Code";
 import ImplementationModal from "./ImplementationModal";
 import { JavascriptIcon } from "../app/styling/icons";
+import { googlecode } from "react-code-blocks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,7 +92,7 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
 
   const [currentTab, setCurrentTab] = useState(1);
   const [currentLanguage, setCurrentLanguage] = useState(
-    new ProgrammingLanguage("", "", JavascriptIcon)
+    new ProgrammingLanguage("", "", googlecode, JavascriptIcon)
   );
   const [currentCode, setCurrentCode] = useState("");
   const [openModal, setOpenModal] = useState(false);

@@ -5,7 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { CodeBlock, dracula } from "react-code-blocks";
+import { CodeBlock } from "react-code-blocks";
 import { ProgrammingLanguage } from "../app/models/sortingAlgorithm";
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
 
@@ -47,7 +47,7 @@ const ImplementationModal: React.FC<{
             text={code}
             language={implementation.language}
             showLineNumbers={true}
-            theme={dracula}
+            theme={implementation.theme}
             wrapLines
           />
         </DialogContentText>
