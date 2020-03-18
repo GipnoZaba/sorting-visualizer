@@ -37,7 +37,7 @@ const data: IAlgorithmData = {
                 </p>`,
   timeComplexity: logarithmicLinear,
   spaceComplexity: linear,
-  implementations: []
+  implementationsMap: new Map<string, string>()
 };
 
 class MergeSort implements ISortingAlgorithm {

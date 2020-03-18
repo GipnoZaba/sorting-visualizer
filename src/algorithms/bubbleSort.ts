@@ -1,7 +1,6 @@
 import {
   ISortingAlgorithm,
-  IAlgorithmData,
-  Implementation
+  IAlgorithmData
 } from "../app/models/sortingAlgorithm";
 import { ISortable } from "../app/models/sortable";
 import {
@@ -11,7 +10,6 @@ import {
 } from "../app/models/visualizerOptions";
 import { swap } from "../app/common/utils/arrayHelpers";
 import { squared, constant } from "../app/common/utils/mathHelpers";
-import { JavascriptIcon } from "../app/styling/icons";
 
 const javascriptCode = `function bubble_Sort(a)
 {
@@ -45,14 +43,7 @@ const data: IAlgorithmData = {
                 the list is repeated until the list is sorted.</p>`,
   timeComplexity: squared,
   spaceComplexity: constant,
-  implementations: [
-    new Implementation(
-      "javascript",
-      "JavaScript",
-      javascriptCode,
-      JavascriptIcon
-    )
-  ]
+  implementationsMap: new Map<string, string>([["javascript", javascriptCode]])
 };
 
 class BubbleSort implements ISortingAlgorithm {

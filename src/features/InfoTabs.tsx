@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {
   ISortingAlgorithm,
-  Implementation
+  languages,
+  ProgrammingLanguage
 } from "../app/models/sortingAlgorithm";
 import {
   ButtonGroup,
@@ -14,15 +15,11 @@ import {
   Paper,
   List,
   ListItem,
-  ListItemText,
-  ListItemIcon,
-  SvgIcon
+  ListItemText
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import DescriptionIcon from "@material-ui/icons/Description";
 import CodeIcon from "@material-ui/icons/Code";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
 import ImplementationModal from "./ImplementationModal";
 import { JavascriptIcon } from "../app/styling/icons";
 
@@ -93,13 +90,22 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const classes = useStyles();
 
   const [currentTab, setCurrentTab] = useState(1);
-  const [currentImplementation, setCurrentImplementation] = useState<
-    Implementation
-  >(new Implementation("", "", "", JavascriptIcon));
+  const [currentLanguage, setCurrentLanguage] = useState(
+    new ProgrammingLanguage("", "", JavascriptIcon)
+  );
+  const [currentCode, setCurrentCode] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
-  const openImplementation = (implementation: Implementation) => {
-    setCurrentImplementation(implementation);
+  const openImplementation = (
+    code: string | undefined,
+    language: ProgrammingLanguage
+  ) => {
+    if (code === undefined) {
+      return;
+    }
+
+    setCurrentLanguage(language);
+    setCurrentCode(code);
     setOpenModal(true);
   };
 
@@ -107,7 +113,8 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
     <Paper className={classes.tabs} elevation={5}>
       <ImplementationModal
         open={openModal}
-        implementation={currentImplementation}
+        code={currentCode}
+        implementation={currentLanguage}
         size="sm"
         handleClose={() => setOpenModal(false)}
       />
@@ -130,13 +137,6 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           variant={currentTab === 2 ? "contained" : "text"}
         >
           <CodeIcon className={classes.icon} />
-        </Button>
-        <Button
-          onClick={() => setCurrentTab(3)}
-          variant={currentTab === 3 ? "contained" : "text"}
-        >
-          <AddIcon className={classes.icon} />
-          <RemoveIcon className={classes.icon} />
         </Button>
       </ButtonGroup>
 
@@ -161,39 +161,33 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         style={{ display: currentTab === 2 ? "block" : "none" }}
       >
         <Typography variant="h5" gutterBottom>
-          Implementaions
+          Implementations
         </Typography>
         <div className={classes.tabContent}>
           <List className={classes.implementationsList}>
-            {algorithm.data.implementations.map(implementation => {
+            {languages.map(language => {
+              let implementation = algorithm.data.implementationsMap.get(
+                language.language
+              );
+
               return (
                 <ListItem
+                  disabled={implementation === undefined}
                   className={classes.listElement}
-                  key={implementation.language}
+                  key={language.language}
                   button
-                  onClick={() => openImplementation(implementation)}
+                  onClick={() => openImplementation(implementation, language)}
                 >
-                  <implementation.icon />
+                  <language.icon />
                   <ListItemText
                     className={classes.listElementText}
-                    primary={implementation.title}
+                    primary={language.title}
                   />
                 </ListItem>
               );
             })}
           </List>
         </div>
-      </Container>
-      <Container
-        className={classes.tabContentContainer}
-        style={{ display: currentTab === 3 ? "block" : "none" }}
-      >
-        <Typography variant="h5" gutterBottom>
-          Use Cases
-        </Typography>
-        <Typography variant="body2" color="primary">
-          ---Coming Soon---
-        </Typography>
       </Container>
     </Paper>
   );

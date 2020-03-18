@@ -6,14 +6,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { CopyBlock, github } from "react-code-blocks";
-import { Implementation } from "../app/models/sortingAlgorithm";
+import { ProgrammingLanguage } from "../app/models/sortingAlgorithm";
 
 const ImplementationModal: React.FC<{
   open: boolean;
-  implementation: Implementation;
+  implementation: ProgrammingLanguage;
+  code: string;
   size: DialogProps["maxWidth"];
   handleClose: () => void;
-}> = ({ open, implementation, size, handleClose }) => {
+}> = ({ open, implementation, code, size, handleClose }) => {
   return (
     <Dialog
       open={open}
@@ -28,7 +29,7 @@ const ImplementationModal: React.FC<{
       <DialogContent dividers={true}>
         <DialogContentText id="scroll-dialog-description" tabIndex={-1}>
           <CopyBlock
-            text={implementation.code}
+            text={code}
             language={implementation.language}
             showLineNumbers={true}
             theme={github}
