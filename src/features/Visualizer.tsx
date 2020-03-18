@@ -36,7 +36,7 @@ const Visualizer: React.FC<{ algorithm: ISortingAlgorithm }> = ({
     <div
       className={[classes.visualizer, classes.vertical].join(" ")}
       style={{
-        gridTemplateRows: `repeat(${getArray(algorithm.type).length}, 1fr)`
+        gridTemplateRows: `repeat(${getArray(algorithm.type).length}, auto)`
       }}
     >
       {getArray(algorithm.type).map((element, index) => {

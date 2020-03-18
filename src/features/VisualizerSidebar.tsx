@@ -8,7 +8,8 @@ import {
   Slider,
   ButtonGroup,
   Button,
-  Badge
+  Badge,
+  Tooltip
 } from "@material-ui/core";
 import { customColors } from "../app/styling/colors";
 import { green, orange, red } from "@material-ui/core/colors";
@@ -142,60 +143,66 @@ const VisualizerSidebar: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         aria-label="contained primary button group"
         fullWidth
       >
-        <Button
-          style={{
-            backgroundColor: speed === "slow" ? green[100] : "white"
-          }}
-          aria-label="slow"
-          onClick={() => handleChangeSpeed("slow")}
-        >
-          <Badge
-            classes={{ badge: classes.slow }}
-            variant="dot"
-            style={{ color: `${green[600]}` }}
+        <Tooltip title="Slow" placement="left" arrow>
+          <Button
+            style={{
+              backgroundColor: speed === "slow" ? green[100] : "white"
+            }}
+            aria-label="slow"
+            onClick={() => handleChangeSpeed("slow")}
           >
-            <SpeedIcon
-              className={classes.icon}
+            <Badge
+              classes={{ badge: classes.slow }}
+              variant="dot"
               style={{ color: `${green[600]}` }}
-            />
-          </Badge>
-        </Button>
-        <Button
-          style={{
-            backgroundColor: speed === "average" ? orange[100] : "white"
-          }}
-          aria-label="average"
-          onClick={() => handleChangeSpeed("average")}
-        >
-          <Badge
-            classes={{ badge: classes.average }}
-            variant="dot"
-            style={{ color: `${orange[600]}` }}
+            >
+              <SpeedIcon
+                className={classes.icon}
+                style={{ color: `${green[600]}` }}
+              />
+            </Badge>
+          </Button>
+        </Tooltip>
+        <Tooltip title="Average" placement="left" arrow>
+          <Button
+            style={{
+              backgroundColor: speed === "average" ? orange[100] : "white"
+            }}
+            aria-label="average"
+            onClick={() => handleChangeSpeed("average")}
           >
-            <SpeedIcon
-              className={classes.icon}
+            <Badge
+              classes={{ badge: classes.average }}
+              variant="dot"
               style={{ color: `${orange[600]}` }}
-            />
-          </Badge>
-        </Button>
-        <Button
-          style={{
-            backgroundColor: speed === "fast" ? red[100] : "white"
-          }}
-          aria-label="fast"
-          onClick={() => handleChangeSpeed("fast")}
-        >
-          <Badge
-            classes={{ badge: classes.fast }}
-            variant="dot"
-            style={{ color: `${red[600]}` }}
+            >
+              <SpeedIcon
+                className={classes.icon}
+                style={{ color: `${orange[600]}` }}
+              />
+            </Badge>
+          </Button>
+        </Tooltip>
+        <Tooltip title="Fast" placement="left" arrow>
+          <Button
+            style={{
+              backgroundColor: speed === "fast" ? red[100] : "white"
+            }}
+            aria-label="fast"
+            onClick={() => handleChangeSpeed("fast")}
           >
-            <SpeedIcon
-              className={classes.icon}
+            <Badge
+              classes={{ badge: classes.fast }}
+              variant="dot"
               style={{ color: `${red[600]}` }}
-            />
-          </Badge>
-        </Button>
+            >
+              <SpeedIcon
+                className={classes.icon}
+                style={{ color: `${red[600]}` }}
+              />
+            </Badge>
+          </Button>
+        </Tooltip>
       </ButtonGroup>
     </Paper>
   );
