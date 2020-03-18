@@ -115,7 +115,7 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         open={openModal}
         code={currentCode}
         implementation={currentLanguage}
-        size="sm"
+        size="md"
         handleClose={() => setOpenModal(false)}
       />
 

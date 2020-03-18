@@ -7,7 +7,8 @@ import {
   CSharpIcon,
   CPlusPlusIcon,
   CIcon,
-  PythonIcon
+  PythonIcon,
+  PhpIcon
 } from "../styling/icons";
 
 export interface IAlgorithmData {
@@ -38,7 +39,8 @@ export const languages = [
   new ProgrammingLanguage("csharp", "C#", CSharpIcon),
   new ProgrammingLanguage("cpp", "C++", CPlusPlusIcon),
   new ProgrammingLanguage("c", "C", CIcon),
-  new ProgrammingLanguage("python", "Python", PythonIcon)
+  new ProgrammingLanguage("python", "Python", PythonIcon),
+  new ProgrammingLanguage("php", "Php", PhpIcon)
 ];
 
 export interface ISortingAlgorithm {

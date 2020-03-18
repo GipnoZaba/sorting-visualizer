@@ -10,6 +10,53 @@ import {
 } from "../app/models/visualizerOptions";
 import { squared, constant } from "../app/common/utils/mathHelpers";
 
+const javascriptCode = `function sort(array) {
+  for (let i = 1; i < array.length; i++) {
+    let key = array[i];
+    let j = i - 1; // left element index
+
+    while (j >= 0 && key < array[j]) {
+      array[j + 1] = array[j];
+      j--;
+    }
+
+    array[j + 1] = key;
+  }
+
+  return array;
+}`;
+
+const typescriptCode = `function sort(array: number[]) {
+  for (let i = 1; i < array.length; i++) {
+    let key = array[i];
+    let j = i - 1; // left element index
+
+    while (j >= 0 && array[j] > key ) {
+      array[j + 1] = array[j];
+      j--;
+    }
+
+    array[j + 1] = key;
+  }
+
+  return array;
+}`;
+
+const javaCode = `void sort(int[] array) { 
+  for (int i = 1; i < array.length; ++i) { 
+    int key = array[i]; 
+    int j = i - 1; // left element index
+
+    while (j >= 0 && array[j] > key) { 
+      array[j + 1] = array[j]; 
+      j--;
+    } 
+    array[j + 1] = key; 
+  }
+
+  return array;
+} `;
+
 const data: IAlgorithmData = {
   title: "Insertion sort",
   class: "Comparison sort",
@@ -47,7 +94,11 @@ const data: IAlgorithmData = {
                 </p>`,
   timeComplexity: squared,
   spaceComplexity: constant,
-  implementationsMap: new Map<string, string>()
+  implementationsMap: new Map<string, string>([
+    ["javascript", javascriptCode],
+    ["typescript", typescriptCode],
+    ["java", javaCode]
+  ])
 };
 
 class InsertionSort implements ISortingAlgorithm {

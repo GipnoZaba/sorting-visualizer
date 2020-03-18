@@ -14,6 +14,127 @@ import {
   logarithmic
 } from "../app/common/utils/mathHelpers";
 
+const javascriptCode = `function sort(array, leftPointer, rightPointer) {
+  var index;
+
+  if (array.length > 1) {
+    index = partition(array, leftPointer, rightPointer);
+
+    if (leftPointer < index - 1) {
+      sort(array, leftPointer, index - 1);
+    }
+
+    if (rightPointer > index) {
+      sort(array, index, rightPointer);
+    }
+  }
+
+  return array;
+}
+
+function partition(array, leftPointer, rightPointer) {
+  let pivotIndex = Math.floor((leftPointer + rightPointer) / 2);
+  let pivot = array[pivotIndex];
+
+  while (leftPointer <= rightPointer) {
+    while (array[leftPointer] < pivot) {
+      leftPointer++;
+    }
+
+    while (array[rightPointer] > pivot) {
+      rightPointer--;
+    }
+
+    if (leftPointer <= rightPointer) {
+      let tmp = array[leftPointer];
+      array[leftPointer] = array[rightPointer];
+      array[rightPointer] = tmp;
+
+      leftPointer++;
+      rightPointer--;
+    }
+  }
+
+  return leftPointer;
+}`;
+
+const typescriptCode = `function sort(
+  array: number[],
+  leftPointer: number,
+  rightPointer: number
+  ) {
+  var index;
+
+  if (array.length > 1) {
+    index = partition(array, leftPointer, rightPointer);
+
+    if (leftPointer < index - 1) {
+      sort(array, leftPointer, index - 1);
+    }
+
+    if (rightPointer > index) {
+      sort(array, index, rightPointer);
+    }
+  }
+
+  return array;
+}
+
+function partition(array, leftPointer, rightPointer) {
+  let pivotIndex = Math.floor((leftPointer + rightPointer) / 2);
+  let pivot = array[pivotIndex];
+
+  while (leftPointer <= rightPointer) {
+    while (array[leftPointer] < pivot) {
+      leftPointer++;
+    }
+
+    while (array[rightPointer] > pivot) {
+      rightPointer--;
+    }
+
+    if (leftPointer <= rightPointer) {
+      let tmp = array[leftPointer];
+      array[leftPointer] = array[rightPointer];
+      array[rightPointer] = tmp;
+      
+      leftPointer++;
+      rightPointer--;
+    }
+  }
+
+  return leftPointer;
+}`;
+
+const javaCode = `void sort(int[] array, int low, int high) { 
+  if (low < high) { 
+    int pi = partition(array, low, high); 
+
+    sort(array, low, pi-1); 
+    sort(array, pi+1, high); 
+  } 
+}
+
+int partition(int[] array, int low, int high) { 
+  int pivot = array[high];  
+  int i = (low - 1); // index of smaller element 
+  for (int j = low; j < high; j++) { 
+    if (array[j] < pivot) { 
+      i++; 
+
+      int temp = array[i]; 
+      array[i] = arr[j]; 
+      array[j] = temp; 
+    } 
+  } 
+
+  int temp = array[i + 1]; 
+  array[i + 1] = array[high]; 
+  array[high] = temp; 
+
+  return i + 1; 
+}`;
+
 const data: IAlgorithmData = {
   title: "Quick Sort",
   class: "Comparison sort",
@@ -45,7 +166,11 @@ const data: IAlgorithmData = {
                 </p>`,
   timeComplexity: logarithmicLinear,
   spaceComplexity: logarithmic,
-  implementationsMap: new Map<string, string>()
+  implementationsMap: new Map<string, string>([
+    ["javascript", javascriptCode],
+    ["typescript", typescriptCode],
+    ["java", javaCode]
+  ])
 };
 
 class QuickSort implements ISortingAlgorithm {

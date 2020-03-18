@@ -10,6 +10,57 @@ import {
 } from "../app/models/visualizerOptions";
 import { squared, constant } from "../app/common/utils/mathHelpers";
 
+const javascriptCode = `function sort(array) {
+  for (let i = 0; i < array.length; i++) {
+    let smallestIndex = i;
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] < array[smallestIndex]) {
+        smallestIndex = j;
+      }
+    }
+
+    let tmp = array[i];
+    array[i] = array[smallestIndex];
+    array[smallestIndex] = tmp;
+  }
+
+  return array;
+}`;
+
+const typescriptCode = `function sort(array: number[]) {
+  for (let i = 0; i < array.length; i++) {
+    let smallestIndex = i;
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] < array[smallestIndex]) {
+        smallestIndex = j;
+      }
+    }
+
+    let tmp = array[i];
+    array[i] = array[smallestIndex];
+    array[smallestIndex] = tmp;
+  }
+
+  return array;
+}`;
+
+const javaCode = `void sort(int[] array) { 
+  for (int i = 0; i < array.length - 1; i++) { 
+    int smallestIndex = i; 
+    for (int j = i + 1; j < n; j++) {
+      if (array[j] < array[smallestIndex]) {
+        smallestIndex = j; 
+      }
+    }
+
+    int temp = array[smallestIndex]; 
+    array[smallestIndex] = array[i]; 
+    array[i] = temp; 
+  }
+
+  return array;
+} `;
+
 const data: IAlgorithmData = {
   title: "Selection Sort",
   class: "Comparison sort",
@@ -38,7 +89,11 @@ const data: IAlgorithmData = {
                 </p>`,
   timeComplexity: squared,
   spaceComplexity: constant,
-  implementationsMap: new Map<string, string>()
+  implementationsMap: new Map<string, string>([
+    ["javascript", javascriptCode],
+    ["typescript", typescriptCode],
+    ["java", javaCode]
+  ])
 };
 
 class SelectionSort implements ISortingAlgorithm {

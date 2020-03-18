@@ -10,6 +10,107 @@ import {
 } from "../app/models/visualizerOptions";
 import { linear, logarithmicLinear } from "../app/common/utils/mathHelpers";
 
+const javascriptCode = `function sort(array) {
+  if (array.length < 2) {
+    return array;
+  }
+
+  const middle = Math.floor(array.length / 2);
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
+
+  return merge(sort(left), sort(right));
+}
+
+function merge(left, right) {
+  let array = [];
+
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      array.push(left.shift());
+    } else {
+      array.push(right.shift());
+    }
+  }
+  return array.concat(left.slice().concat(right.slice()));
+}`;
+
+const typescriptCode = `function sort(array: number[]) {
+  if (array.length < 2) {
+    return array;
+  }
+
+  const middle = Math.floor(array.length / 2);
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
+
+  return merge(sort(left), sort(right));
+}
+
+function merge(left: number[], right: number[]) {
+  let array: number[] = [];
+
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      array.push(left.shift());
+    } else {
+      array.push(right.shift());
+    }
+  }
+  return array.concat(left.slice().concat(right.slice()));
+}`;
+
+const javaCode = `void sort(int[] array, int l, int r) { 
+  if (l < r) { 
+    int m = (l + r) / 2; 
+
+    sort(array, l, m); 
+    sort(array , m + 1, r); 
+
+    merge(array, l, m, r); 
+  } 
+}
+
+void merge(int[] array, int l, int m, int r) { 
+  int n1 = m - l + 1; 
+  int n2 = r - m; 
+
+  int L[] = new int [n1]; 
+  int R[] = new int [n2]; 
+
+  for (int i = 0; i < n1; ++i) 
+    L[i] = array[l + i]; 
+  for (int j=0; j < n2; ++j) 
+    R[j] = array[m + 1+ j]; 
+
+  int i = 0, j = 0; 
+
+  int k = l; 
+  while (i < n1 && j < n2) { 
+    if (L[i] <= R[j]) { 
+      array[k] = L[i]; 
+      i++; 
+    } 
+    else { 
+      array[k] = R[j]; 
+      j++; 
+    } 
+    k++; 
+  } 
+
+  while (i < n1) { 
+    array[k] = L[i]; 
+    i++; 
+    k++; 
+  } 
+
+  while (j < n2) { 
+    array[k] = R[j]; 
+    j++; 
+    k++; 
+  } 
+}`;
+
 const data: IAlgorithmData = {
   title: "Merge Sort",
   class: "Comparison sort",
@@ -37,7 +138,11 @@ const data: IAlgorithmData = {
                 </p>`,
   timeComplexity: logarithmicLinear,
   spaceComplexity: linear,
-  implementationsMap: new Map<string, string>()
+  implementationsMap: new Map<string, string>([
+    ["javascript", javascriptCode],
+    ["typescript", typescriptCode],
+    ["java", javaCode]
+  ])
 };
 
 class MergeSort implements ISortingAlgorithm {
