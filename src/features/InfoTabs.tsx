@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { ISortingAlgorithm } from "../app/models/sortingAlgorithm";
+import {
+  ISortingAlgorithm,
+  Implementation
+} from "../app/models/sortingAlgorithm";
 import {
   ButtonGroup,
   Button,
@@ -18,7 +21,6 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import CodeIcon from "@material-ui/icons/Code";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import { CopyBlock, dracula } from "react-code-blocks";
 import ImplementationModal from "./ImplementationModal";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -68,14 +70,22 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
   const classes = useStyles();
 
   const [currentTab, setCurrentTab] = useState(1);
+  const [currentImplementation, setCurrentImplementation] = useState<
+    Implementation
+  >(new Implementation("", ""));
   const [openModal, setOpenModal] = useState(false);
+
+  const openImplementation = (implementation: Implementation) => {
+    setCurrentImplementation(implementation);
+    setOpenModal(true);
+  };
 
   return (
     <Paper className={classes.tabs} elevation={5}>
       <ImplementationModal
         open={openModal}
-        language="javascript"
-        code={algorithm.data.implementations.get("javascript") ?? ""}
+        language={currentImplementation.language}
+        code={currentImplementation.code}
         size="sm"
         handleClose={() => setOpenModal(false)}
       />
@@ -133,9 +143,17 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
         </Typography>
         <div className={classes.tabContent}>
           <List>
-            <ListItem button onClick={() => setOpenModal(true)}>
-              <ListItemText primary="Javascript" />
-            </ListItem>
+            {algorithm.data.implementations.map(implementation => {
+              return (
+                <ListItem
+                  key={implementation.language}
+                  button
+                  onClick={() => openImplementation(implementation)}
+                >
+                  <ListItemText primary={implementation.language} />
+                </ListItem>
+              );
+            })}
           </List>
         </div>
       </Container>

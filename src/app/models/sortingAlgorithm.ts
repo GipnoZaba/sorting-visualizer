@@ -7,7 +7,17 @@ export interface IAlgorithmData {
   description: string;
   timeComplexity: string;
   spaceComplexity: string;
-  implementations: Map<string, string>;
+  implementations: Implementation[];
+}
+
+export class Implementation {
+  language: string;
+  code: string;
+
+  constructor(language: string, code: string) {
+    this.language = language;
+    this.code = code;
+  }
 }
 
 export interface ISortingAlgorithm {

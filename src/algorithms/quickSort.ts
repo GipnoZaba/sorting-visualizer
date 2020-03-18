@@ -45,7 +45,7 @@ const data: IAlgorithmData = {
                 </p>`,
   timeComplexity: logarithmicLinear,
   spaceComplexity: logarithmic,
-  implementations: new Map<string, string>()
+  implementations: []
 };
 
 class QuickSort implements ISortingAlgorithm {

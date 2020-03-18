@@ -31,7 +31,7 @@ export default class VisualizerStore implements IStore {
     this.initialize();
   }
 
-  animationSpeed = 10;
+  animationSpeed = 100;
   @observable speed = "average";
   @observable currentCardIndex = 1;
 

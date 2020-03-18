@@ -47,7 +47,7 @@ const data: IAlgorithmData = {
                 </p>`,
   timeComplexity: squared,
   spaceComplexity: constant,
-  implementations: new Map<string, string>()
+  implementations: []
 };
 
 class InsertionSort implements ISortingAlgorithm {

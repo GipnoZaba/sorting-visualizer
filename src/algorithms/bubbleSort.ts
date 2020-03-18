@@ -1,6 +1,7 @@
 import {
   ISortingAlgorithm,
-  IAlgorithmData
+  IAlgorithmData,
+  Implementation
 } from "../app/models/sortingAlgorithm";
 import { ISortable } from "../app/models/sortable";
 import {
@@ -44,16 +45,12 @@ const data: IAlgorithmData = {
                 the list is repeated until the list is sorted.</p>`,
   timeComplexity: squared,
   spaceComplexity: constant,
-  implementations: new Map<string, string>()
+  implementations: [new Implementation("javascript", javascriptCode)]
 };
 
 class BubbleSort implements ISortingAlgorithm {
   type = Algorithms.BubbleSort;
   data = data;
-
-  constructor() {
-    this.data.implementations.set("javascript", javascriptCode);
-  }
 
   sort(array: ISortable[]) {
     array = array.slice();
