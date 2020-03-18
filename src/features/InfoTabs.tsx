@@ -131,35 +131,19 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
           onClick={() => setCurrentTab(1)}
           variant={currentTab === 1 ? "contained" : "text"}
         >
-          <DescriptionIcon className={classes.icon} />
+          <CodeIcon className={classes.icon} />
         </Button>
         <Button
           onClick={() => setCurrentTab(2)}
           variant={currentTab === 2 ? "contained" : "text"}
         >
-          <CodeIcon className={classes.icon} />
+          <DescriptionIcon className={classes.icon} />
         </Button>
       </ButtonGroup>
 
       <Container
         className={classes.tabContentContainer}
         style={{ display: currentTab === 1 ? "block" : "none" }}
-      >
-        <Typography variant="h5" gutterBottom>
-          Description
-        </Typography>
-
-        <Typography
-          className={classes.tabContent}
-          variant="body2"
-          dangerouslySetInnerHTML={{
-            __html: algorithm.data.description
-          }}
-        ></Typography>
-      </Container>
-      <Container
-        className={classes.tabContentContainer}
-        style={{ display: currentTab === 2 ? "block" : "none" }}
       >
         <Typography variant="h5" gutterBottom>
           Implementations
@@ -189,6 +173,22 @@ const InfoTabs: React.FC<{ algorithm: ISortingAlgorithm }> = ({
             })}
           </List>
         </div>
+      </Container>
+      <Container
+        className={classes.tabContentContainer}
+        style={{ display: currentTab === 2 ? "block" : "none" }}
+      >
+        <Typography variant="h5" gutterBottom>
+          Description
+        </Typography>
+
+        <Typography
+          className={classes.tabContent}
+          variant="body2"
+          dangerouslySetInnerHTML={{
+            __html: algorithm.data.description
+          }}
+        ></Typography>
       </Container>
     </Paper>
   );
