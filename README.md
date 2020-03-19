@@ -4,7 +4,11 @@
 
 Web application for visualizing sorting algorithms.
 
+![Fullsize screenshot](https://github.com/GipnoZaba/sorting-visualizer/blob/master/public/Fullsize.png)
 
+Visualizing Quick Sort on maximum speed:
+
+![Quick Sort](https://github.com/GipnoZaba/sorting-visualizer/blob/master/public/SortGif.gif)
 
 ## Getting Started
 
