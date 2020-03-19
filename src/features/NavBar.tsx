@@ -14,11 +14,15 @@ import {
   FormControl,
   Select,
   MenuItem,
-  ListSubheader
+  ListSubheader,
+  Tooltip,
+  Link,
+  IconButton
 } from "@material-ui/core";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../app/stores/rootStore";
 import { squared, logarithmicLinear } from "../app/common/utils/mathHelpers";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,6 +96,13 @@ const PrimarySearchAppBar = () => {
     <div className={classes.grow}>
       <AppBar position="static" id="appBar">
         <Toolbar>
+          <Tooltip title="Source" placement="bottom" arrow open>
+            <IconButton>
+              <Link href="https://github.com/GipnoZaba/sorting-visualizer">
+                <GitHubIcon />
+              </Link>
+            </IconButton>
+          </Tooltip>
           <Typography className={classes.title} variant="h6" noWrap>
             Sorting Visualizer
           </Typography>
