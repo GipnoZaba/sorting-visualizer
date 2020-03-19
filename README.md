@@ -30,6 +30,7 @@ Open http://localhost:3000 to view it in the browser.
 ## Used technologies
 
 * [React](https://reactjs.org/)
+* [TypeScript](https://www.typescriptlang.org/)
 * Styling:
   * [Material UI](https://sass-lang.com/)
   * HTML
