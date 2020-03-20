@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/sorting-visualizer/static/css/main.12ad0f12.chunk.css",
-    "main.js": "/sorting-visualizer/static/js/main.c493ea58.chunk.js",
-    "main.js.map": "/sorting-visualizer/static/js/main.c493ea58.chunk.js.map",
+    "main.js": "/sorting-visualizer/static/js/main.53f8e6e2.chunk.js",
+    "main.js.map": "/sorting-visualizer/static/js/main.53f8e6e2.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_abap.js": "/sorting-visualizer/static/js/react-syntax-highlighter_languages_refractor_abap.6e63fee3.chunk.js",
     "react-syntax-highlighter_languages_refractor_abap.js.map": "/sorting-visualizer/static/js/react-syntax-highlighter_languages_refractor_abap.6e63fee3.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_actionscript.js": "/sorting-visualizer/static/js/react-syntax-highlighter_languages_refractor_actionscript.26e11b3a.chunk.js",
@@ -312,7 +312,7 @@
     "static/js/154.0b7b6a1b.chunk.js": "/sorting-visualizer/static/js/154.0b7b6a1b.chunk.js",
     "static/js/154.0b7b6a1b.chunk.js.map": "/sorting-visualizer/static/js/154.0b7b6a1b.chunk.js.map",
     "index.html": "/sorting-visualizer/index.html",
-    "precache-manifest.c2a8198122ec2c304793b744ec05ff9f.js": "/sorting-visualizer/precache-manifest.c2a8198122ec2c304793b744ec05ff9f.js",
+    "precache-manifest.c9ed7d525b687ef7553d222f6174c9fb.js": "/sorting-visualizer/precache-manifest.c9ed7d525b687ef7553d222f6174c9fb.js",
     "service-worker.js": "/sorting-visualizer/service-worker.js",
     "static/css/main.12ad0f12.chunk.css.map": "/sorting-visualizer/static/css/main.12ad0f12.chunk.css.map",
     "static/js/153.367afa76.chunk.js.LICENSE.txt": "/sorting-visualizer/static/js/153.367afa76.chunk.js.LICENSE.txt"
@@ -321,6 +321,6 @@
     "static/js/runtime-main.91dda3ce.js",
     "static/js/153.367afa76.chunk.js",
     "static/css/main.12ad0f12.chunk.css",
-    "static/js/main.c493ea58.chunk.js"
+    "static/js/main.53f8e6e2.chunk.js"
   ]
 }
