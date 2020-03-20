@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme: Theme) =>
     vertical: {
       display: "grid",
       gridTemplateRows: "auto",
-      rowGap: "1px"
+      rowGap: "1px",
+      gridRowGap: "1px"
     },
     bar: {
       display: "flex",
